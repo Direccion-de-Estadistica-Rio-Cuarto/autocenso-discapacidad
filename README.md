@@ -52,11 +52,11 @@ En esta versión **el formulario no envía ni guarda datos en ningún servidor**
 
 ## Uso
 
-1. Abrir `Relevamiento_Discapacidad_v3.html` en un navegador.
+1. Abrir `index.html` en un navegador, o publicarlo con GitHub Pages (el formulario está en `index.html` para que Pages lo muestre como página principal).
 2. Para identificar el canal de difusión sin preguntarlo (P2), agregar el parámetro `canal` al enlace o al código QR de cada canal:
 
    ```
-   Relevamiento_Discapacidad_v3.html?canal=centro-de-salud
+   https://<usuario>.github.io/<repositorio>/?canal=centro-de-salud
    ```
 
 ### Configuración
