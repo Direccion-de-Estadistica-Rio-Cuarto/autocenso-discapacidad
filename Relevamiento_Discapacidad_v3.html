@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relevamiento Discapacidad 2026</title>
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--ink:#16202b;--muted:#46535f;--line:#c4cdd7;--brand:#1f4e79;--brand-ink:#fff;--accent:#e6eef7;--todo-bg:#fff1c2;--todo-ink:#4d3a00;--err:#b3261e;--focus:#f2a900;--ok:#1d6b3a;--fs:18px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e1318;--card:#17202a;--ink:#e9eef3;--muted:#a8b5c2;--line:#34424f;--brand:#6aa6dc;--brand-ink:#0b1520;--accent:#1c2a39;--todo-bg:#433608;--todo-ink:#ffe28f;--err:#ff8f86;--ok:#86d9a1}}
+:root[data-theme="dark"]{--bg:#0e1318;--card:#17202a;--ink:#e9eef3;--muted:#a8b5c2;--line:#34424f;--brand:#6aa6dc;--brand-ink:#0b1520;--accent:#1c2a39;--todo-bg:#433608;--todo-ink:#ffe28f;--err:#ff8f86;--ok:#86d9a1}
+*{box-sizing:border-box}
+html{font-size:var(--fs)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--card);padding:8px;z-index:9}
+header.top{background:var(--brand);color:var(--brand-ink);padding:14px 16px}
+header.top .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+header.top h1{font-size:1.05rem;margin:0;font-weight:700}
+header.top p{margin:2px 0 0;font-size:.8rem;opacity:.9}
+header.top p.piloto{display:inline-block;margin:0 0 6px;padding:2px 10px;border:2px solid currentColor;border-radius:4px;font-weight:800;letter-spacing:.06em;opacity:1}
+.tools button{background:transparent;color:var(--brand-ink);border:1px solid currentColor;border-radius:6px;padding:4px 10px;font:inherit;font-size:.8rem;cursor:pointer;margin-left:4px}
+.wrap{max-width:860px;margin:0 auto}
+main{padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 18px;margin-bottom:16px}
+.progress{font-size:.85rem;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:14px}.bar>i{display:block;height:100%;background:var(--brand)}
+.person{display:inline-block;background:var(--accent);border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-weight:600;font-size:.9rem;margin-bottom:8px}
+h2{font-size:1.3rem;margin:.2rem 0 1rem;color:var(--brand)}
+h3{font-size:1.05rem;margin:1.2rem 0 .4rem}
+.intro{background:var(--accent);border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:.95rem}
+.intro p{margin:.4rem 0}
+.q{border-top:1px solid var(--line);padding:16px 0}
+.q:first-of-type{border-top:0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend,.qlabel{font-weight:600;margin-bottom:6px;display:block;padding:0}
+.num{display:inline-block;min-width:2.4em;color:var(--brand)}
+.hint{color:var(--muted);font-size:.85rem;margin:2px 0 8px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:6px 8px;border-radius:6px;cursor:pointer}
+.opt:hover{background:var(--accent)}
+.opt input{width:1.2rem;height:1.2rem;margin-top:.2rem;flex:none;accent-color:var(--brand)}
+.opt small{display:block;color:var(--muted)}
+.matrix .opts{display:flex;flex-wrap:wrap;gap:4px}
+.matrix .opt{border:1px solid var(--line);flex:1 1 150px}
+input[type=text],input[type=tel],input[type=email],input[type=number],input[type=date],input[type=month],select,textarea{font:inherit;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;max-width:520px}
+textarea{min-height:140px;max-width:100%}
+dialog#ayuda{border:1px solid var(--line);border-radius:12px;padding:0;max-width:680px;width:calc(100% - 32px);max-height:calc(100% - 48px);background:var(--card);color:var(--ink)}
+dialog#ayuda::backdrop{background:rgba(0,0,0,.55)}
+.dlg-head{position:sticky;top:0;background:var(--card);display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.dlg-head h2{margin:0;font-size:1.1rem}
+.dlg-body{padding:6px 18px 18px;font-size:.95rem}
+.piloto-c{display:inline-block;margin:0 0 10px;padding:2px 10px;border:2px solid var(--brand);color:var(--brand);border-radius:4px;font-weight:800;letter-spacing:.06em;font-size:.85rem}
+@media print{.piloto-c{border-color:#000;color:#000}}
+.combo{position:relative;max-width:520px}
+.lb{position:absolute;left:0;right:0;top:100%;z-index:5;margin:2px 0 0;padding:4px 0;list-style:none;background:var(--card);border:2px solid var(--brand);border-radius:6px;max-height:260px;overflow:auto;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.lb li{padding:8px 12px;cursor:pointer}
+.lb li[aria-selected=true],.lb li:hover{background:var(--brand);color:var(--brand-ink)}
+.otro{margin:6px 0 0 36px}
+.otro label{font-size:.9rem;display:block}
+.err{color:var(--err);font-weight:600;font-size:.9rem;margin-top:6px}
+.q.invalid input,.q.invalid select,.q.invalid textarea{border-color:var(--err)}
+.summary{border:2px solid var(--err);border-radius:8px;padding:10px 14px;margin-bottom:14px}
+.summary h3{margin:0 0 4px;color:var(--err)}
+.nav{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-top:8px}
+button.btn{font:inherit;font-weight:600;border-radius:8px;padding:10px 20px;cursor:pointer;border:2px solid var(--brand)}
+.btn.primary{background:var(--brand);color:var(--brand-ink)}
+.btn.sec{background:transparent;color:var(--brand)}
+.btn.small{padding:4px 12px;font-size:.85rem;font-weight:500}
+mark.todo{background:var(--todo-bg);color:var(--todo-ink);padding:0 3px;border-radius:3px;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:8px 0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--accent)}
+.tablewrap{overflow-x:auto}
+.box{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0}
+.box h3{margin-top:0}
+.code{font-family:ui-monospace,Consolas,monospace;font-size:1.3rem;font-weight:700;letter-spacing:.06em}
+.ok{color:var(--ok)}
+[hidden]{display:none!important}
+@media print{header.top,.nav,.noprint,#app{display:none!important}body{background:#fff;color:#000}.card{border:0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="top"><div class="wrap">
+  <div><p class="piloto">PRUEBA PILOTO PRELIMINAR · CONFIDENCIAL</p><h1>Relevamiento Situacional Autogestionado de Personas en Situación de Discapacidad 2026</h1>
+  <p>Gobierno de Río Cuarto · Dirección de Estadística, Control de Calidad y Procesos · Formulario v3</p></div>
+  <div class="tools"><button type="button" id="fsDown" aria-label="Achicar letra">A−</button><button type="button" id="fsUp" aria-label="Agrandar letra">A+</button><button type="button" id="themeBtn">Contraste</button></div>
+</div></header>
+<main id="main" class="wrap">
+  <div id="app"></div>
+  <div id="fin" hidden></div>
+</main>
+<dialog id="ayuda" aria-labelledby="ayudaT">
+  <div class="dlg-head"><h2 id="ayudaT">Ayuda e información del relevamiento</h2><button type="button" class="btn sec small" id="ayudaX">Cerrar</button></div>
+  <div class="dlg-body" id="ayudaB"></div>
+</dialog>
+
+<script>
+"use strict";
+/* ============ LISTAS (hoja de configuración) ============ */
+const LISTAS = {
+  canasta: { valor: 1632505, fuente: 'INDEC, valorización mensual de la Canasta Básica Total (hogar tipo de 4 integrantes, Gran Buenos Aires), septiembre de 2026, publicada el 13/10/2026' },
+  barrios: [ // listado oficial de barrios (fuente: Barrios Río Cuarto.xlsx)
+    'Aero Village', 'Alberdi Norte', 'Alem', 'Alto Privado Norte', 'Banda Norte', 'Barrios Unidos', 'Buena Vista', 'Cabrales', 'Casanovas', 'Centro',
+    'Cielos del Oeste', 'Ciudad Nueva', 'Excuarteles', 'Fénix', 'General Paz', 'General Roca', 'Golf', 'Güemes', 'Indio Felipe Rosas', 'Industrial',
+    'Ingeniero Manuel Pizarro', 'Intendente Mójica', 'Jardín', 'Jardín Norte', 'José de Calasanz', 'Juan Martín de Pueyrredón', 'La Agustina', 'Las Delicias',
+    'Las Ferias', 'Las Quintas', 'Lomitas de Oro', 'Mayer', 'Nueva Argentina', 'Once de Noviembre', 'Paraíso', 'Parque Alihuen', 'Parque Bimaco', 'Peirano',
+    'Pueblo Alberdi', 'Pueblo Nuevo', 'Quintitas Golf', 'Residencial Castelli 1', 'Residencial Norte', 'Roque Sáenz Peña', 'San Antonio de Padua', 'San Eduardo',
+    'San Martín', 'San Pablo', 'Santa Rosa', 'Santa Teodora', 'Tiro Federal', 'Valacco', 'Villa Dalcar', 'Villa Golf'],
+  calles: ["11 DE NOVIEMBRE","12 DE ABRIL","12 DE AGOSTO DIA DE LA JUVENTUD","12 DE OCTUBRE","13 DE JULIO","14 DE ABRIL","17 DE OCTUBRE","18 DE MARZO","22 DE ABRIL","25 DE MAYO","8 DE MARZO DIA DE LA MUJER TRABAJADORA","8 DE MARZO DIA DE LA MUJER TRABAJADORA (N)","9 DE JULIO","ABANDERADO GRANDOLI","ABILENE","ABRAHAM LINCOLN","ACACIAS","ACHALAY","ACONCAGUA","ACONQUIJA","ADAN QUIROGA","ADELIA MARIA","ADOLFO BIOY CASARES","Agte. JOSE DUARTE","AGUSTIN TOSCO","ALACALUFES","ALAMEDA","ALBERDI","ALBERDI (N)","ALBERTO LUBETKIN","ALBERTO SORIA","ALCALDE ANDRES ACOSTA","ALEJANDRO AGUADO","ALEJANDRO HIRAM MONTBRUN","ALEJANDRO NONIS","ALEJANDRO ROCA","ALEJANDRO SANSI","ALESSIO IANNACCONE","ALFREDO TERZAGA","ALFREDO VITULO","ALGARROBO","ALICIA MOREAU DE JUSTO","ALMAFUERTE","ALSINA","Alte. BROWN","ALVEAR","AMADEO FIORI","AMADEO MIRANDA","AMADEO MOZART","AMADO JULIAN CURCHOD","AMADO NERVO","AMEGHINO","ANA MARIA SERPEZ","ANA MARIA VILLANUEVA","ANACLETO PEANO","ANDRES DADONE","ANDRES TERZAGA","ANGEL ENRIQUE VIEYRA","ANGEL H. CABRAL","ANGEL OLIVIERI","ANGELA MARTINEZ","ANIBAL PONCE","ANTARTIDA ARGENTINA","ANTONIO DEL VALLE","ANTONIO F. LUCERO","ANTONIO FERRER","ANTONIO OVIDES","ANTONIO SAENZ","APATAMAS","ARAUCANOS","ARGENTINA","ARGÜELLO","ARISTOBULO DEL VALLE","ARRAYANES","ARROYO PIEDRAS BLANCAS","ARTURO M. BAS","ARTURO M. JAURETCHE","ATENAS","ATILIO LOPEZ","AYACUCHO","AYMARAS","AZOPARDO","BACH","BAIGORRIA","BAJADA MANUEL LASTRA","BALCARCE","BARILOCHE","BEETHOVEN","BELGRANO","BELISARIO ROLDAN","BEN ALFA PETRAZZINI","BENIGNO HERNANDEZ","BENJAMIN CASTELLANO","BENJAMIN FRANKLIN","BERNARDO DE O\u0027HIGGINS","BERNARDO HOUSSAY","BERNARDO LACASE","BERNARDO MONTEAGUDO","BERTA CLARA PERASSI","BERTA Y ROBERTO TATO","BERUTTI","BIANCO BUFALI","BLAS PARERA","BOLIVAR","BOLIVIA","Bomb. JOSE MICHELIZA","BRASIL","BUENA VISTA","BUENOS AIRES","CABILDO","CABILDO DE LA VILLA DE LA CONCEPCION","CABO DE HORNOS","CABRERA","CAFETO","CALANDRIA","CALCHAQUIES","CALDEN","CALLAO","CAMILO ARIAS","CANADA","CANTU","CAÑA DE AMBAR","Cap. FELIX MESTRE","Cap. FRANCISCO CESAR","Cap. MANUEL GIACHINO","Cap. MANUEL PRADO","CAPAYANES","CARACAS","CARDENAL","CARLOS ANSELMO GHIGLIONE","CARLOS ASTRADA","CARLOS AVILA JUAREZ","CARLOS DAVERIO","CARLOS GARDEL","CARLOS PELLEGRINI","CARLOS PEREZ ZAVALA","CARLOS VISMARA","CARMELO PEREZ","CASEROS","CATAMARCA","Cdro. RIVADAVIA","CECILIA GRIERSON","CECILIO ERNESTO PEREZ DE LA ROSA","CERRO CATEDRAL","CERRO FITZ ROY","CERRO TRONADOR","CERVANTES","CESAR MILSTEIN","CHACABUCO","CHACO","CHAMPAQUI","CHAÑAR","CHEMECO","CHICLANA","CHILE","CHUBUT","CID CAMPEADOR","Ciruelos","CIUDAD DE VINAROS","Cjal. ALFREDO SANTIAGO OVIEDO","Cjal. CAROLINA SALGADO DE GONZALEZ","Cjal. EIZMENDI","Cjal. F. ALEJANDRO IMPOSTI","Cjal. PASCUAL RAMIREZ","Cjal. SOLANGE G. DE BARRERA","CLAUDIO MAMERTO CUENCA","CLODOMIRA VERA","Cmte. AGENOR DE LA VEGA","Cmte. DOROTEO GONZALEZ","Cmte. JUAN A. BALMACEDA","Cmte. JUAN A. BALMACEDA (N)","Cmte. MARTIN QUENON","Cmte. VENTURA ECHEVERRIA","Cnel. CONRADO VILLEGAS","Cnel. DORREGO","Cnel. DORREGO (N)","Cnel. MOLDES","Cnel. MOLDES (N)","Cnel. OLMEDO","Cnel. PEDRO H. ZANNI","Cnel. PEDRO VARGAS","Cnel. SIMON GORORDO","Cnel. VIDELA","COCHANCHARAVA","COLIBRI","COLOMBIA","COLON","COMECHINGONES","CONSTITUCION","CORDOBA","CORRIENTES","COSME ARGERICH","COSTA RICA","COSTANERA","Crio. JOSE CONSIGLI","Crio. JOSE CONSIGLI (N)","Crio. MANUEL MEDINA","Crio. MANUEL MEDINA (N)","CRISTOBAL BAEZ","CUBA","CUYO","DALIA","DANTE","DANTE ASPITIA","DE ACCESO","DE LA CONCEPCION","DE LAS POSTAS","DE LOS MONTONEROS","DE LOS PONCHOS","DE LOS TROPEROS","DEAN FUNES","DEL LIBERTADOR JOSE DE SAN MARTIN","DELFINO QUIRICI","DERMIDIO L. OBREGON","DIAGUITAS","DIEGO BRASH","DIEGO PAROISSIEN","DIEGO VELAZQUEZ","DOMINGO DI SANTO","DOMINGO FICCO","DON BOSCO","DOROTEO MIRANDA","Dr. ALFREDO PALACIOS","Dr. AMADEO SABATTINI","Dr. CARLOS GAUDARD","Dr. CARLOS GAUDARD (N)","Dr. CARLOS J. NORTON","Dr. CARLOS J. RODRIGUEZ","Dr. EMILIO A. CONI","Dr. FRANCISCO J. MUÑIZ","Dr. GUILLERMO ALEJANDRO MONTES","Dr. GUILLERMO RAWSON","Dr. JOSE MARTORELLI","Dr. JOSE MARTORELLI (N)","Dr. JULIAN MAIDANA","Dr. MARTIN DE ALVA","Dr. TOMAS SOAJE","Dr. VICENTE FELIPE CONTI","Dr. VICTOR R. GUILLET","ECHEVERRIA","ECUADOR","EDMUNDO D\u0027AMICIS","EDMUNDO ROBERTO DENNER","EDUARDO BAS","EDUARDO JENNER","EDUARDO PEREZ BULNES","EL CHASQUE","EL RASTREADOR","EL SALVADOR","ELIANA ALCARAZ","ELIAS MOYANO","ELISEO SANCHEZ","ELSA GLADYS COMBA","EMERIC VIDAL","EMILIO JAUTZ","Enf. ROSA DE OLIVARES","ENRIQUE ROS","ENRIQUE SANTOS DISCEPOLO","ENTRE RIOS","ESPAÑA","ESPERANZA","ESPINILLO","ESTADO DE ISRAEL","ESTADO DE PALESTINA","ESTADOS UNIDOS","ESTANISLAO ZEBALLOS","ESTEBAN A. GAZCON","FALUCHO","FAMATINA","FATIMA","FEDERICO DECOUVETTE","FEDERICO GRÜBEN","FELIPE GOMEZ DEL JUNCO","FELIPE NERI GUERRA","FELIX BRUNO","FERNANDO FADER","FERNANDO FADER (E)","FIDEL ARGUELLO","FLORENCIO SANCHEZ","FLORINDO DI COLA","FORMOSA","FORTUNATO REMEDI","FOTHERINGHAM","FRANCIA","FRANCISCO FRUTTERO","FRANCISCO LACASE","FRANCISCO PERCELLO","FRANCISCO REMONDINO","FRANCISCO ZARCO","FRANKLIN ARREGUI CANO","FRANKLIN ROOSEVELT","FRAY ANTONIO CARDARELLI","FRAY BENITO TESSITORE","FRAY DONATTI","FRAY JUSTO SANTA MARIA DE ORO","FRAY LUDOVICO QUARANTA","FRAY LUIS BELTRAN","FRAY MAMERTO ESQUIU","FRAY MOISES ALVAREZ","FRAY QUIRICO PORRECA","FRAY SALVADOR SOLA","FRENCH","GABRIEL BRAUNSTEIN MAIDEN","GENARO IGLESIAS","GERONIMO ALIAGA","GERONIMO DEL BARCO","GILDA HEBE CONTRERAS","GLAUCE HELEM BALDOVIN","Gob. ALEJO C. GUZMAN","Gob. ENRIQUE RODRIGUEZ","Gob. JUAN BAUTISTA BUSTOS","Gob. MANUEL LOPEZ","GODOFREDO DAIREAUX","Gral. BRUNO MORON","Gral. ENRIQUE MOSCONI","Gral. ENRIQUE MOSCONI (E)","Gral. HILARION DE LA QUINTANA","Gral. JOSE GARIBALDI","Gral. MIGUEL E. MOLINA","Gral. PAZ","Gral. PAZ (N)","Gral. ROCA","Gral. SOLER","GRANADEROS","GRITO DE ALCORTA","GUACAMAYOS","GUARDIAS NACIONALES","GUATEMALA","GUAYAQUIL","GUAYCURUES","GÜEMES","GUILLERMO MARCONI","GUMERSINDO ALONSO","GUSTAVO CANDINI","HAITI","HECTOR ROBERTO BRITOS","HECTOR SOSA","HERMANOS VELAZCO","HERMINIO MALVINO","HERNANDARIAS","HILARIO ASCASUBI","HIPOLITO IRIGOYEN","HOMERO MANZI","HONDURAS","HORNERO","HORTENSIA GARDEY","HUARPES","HUMAHUACA","HUMBERTO PRIMERO","IGNACIO PIROVANO","IGUAZU","INDALECIO LOPEZ","INDIO FELIPE ROSAS","Ing. ALBERTO EMILIO LUCCHINI","Ing. DINKELDEIN","Ing. DINKELDEIN (N)","Ing. JOSE MARIA MOYANO","Ing. MANUEL PIZARRO","Int. BOASI","Int. DAGUERRE","Int. Dr. HUMBERTO J. MUGNAINI","Int. Dr. JAIME GIL","INTI-HUASI","IPE","ISABEL DE GUEVARA","Isabel del Carmen Luchetta","ISABEL LA CATOLICA","ISIDORO VAREA","ISLAS DE LOS ESTADOS","ISLAS GEORGIAS","ISLAS MALVINAS","ISLAS ORCADAS","ITALIA","ITUZAINGO","JAMAICA","JOAQUIN BUSTAMANTE","JOAQUIN CRISOL","JOAQUIN VICTOR GONZALEZ","JORGE LUIS BORGES","JORGE NEWBERY","JORGE WASHINGTON","JOSE A. PACHECO DE MELO","JOSE ALBERTO SVAGUZA","JOSE BALZANO","JOSE BIASSI","JOSE BOZZANO","JOSE CARDARELLI","JOSE DARRAGUEIRA","JOSE DEMARCHI","JOSE D\u0027ERAMO","JOSE E. COLOMBRES","JOSE GABRIEL BROCHERO","JOSE HERNANDEZ","JOSE I. THAMES","JOSE INGENIEROS","JOSE M. SERRANO","JOSE M. SERRANO (N)","JOSE M. SUGASTI","JOSE MANUEL ESTRADA","JOSE MANUEL ESTRADA (N)","JOSE MARIA ORTIZ","JOSE MARMOL","JOSE MARMOL (N)","JOSE OMAR PARIANI","JOSE PENNA","JOSE SEVERO MALABIA","JOSE T. SEMERIA","JOSE V. DE ALVA","JOSE VERDI","JUAN A. DE LA MAZA","JUAN A. FERNANDEZ","JUAN B. FASSI","JUAN B. JUSTO","JUAN BAUTISTA DICHIARA","JUAN BIALET MASSE","JUAN BRANDINO","JUAN CRUZ VARELA","JUAN DE DIOS MADERA","JUAN DE GARAY","JUAN DIAZ DE SOLIS","JUAN FILLOY","JUAN FLORIANI","JUAN GOETHE","JUAN GOLOBARDES","JUAN ISLA","JUAN JOSE CASTELLI","JUAN JOSE PASO","JUAN JOSE VIAMONTE","JUAN LAFORGUE","JUAN MANUEL FANGIO","JUAN MARCHISIO","JUAN PASTOR CARDARELLI","JUAN VASQUEZ CAÑAS","JUANA AZURDUY DE PADILLA","JUANA MANUELA GORRITI","JUJUY","JULIA DIAZ","JULIAN AGUIRRE","JULIO C. BORDA","JULIO CORTAZAR","JUSTO P. HERNANDEZ","KANTUTA","KENNEDY","KOWALK","LA ALOJA","LA PAMPA","LAGO CORRENTOSO","LAGO LACAR","LAGO NAHUEL HUAPI","LAGO TRAFUL","LAGUNA BLANCA","LAGUNA FRIAS","LAGUNA LEUVUCO","LAMADRID","LANCEROS DEL SUD","LANIN","LAPACHO","LAPRIDA","LAS DELICIAS","LAS GOLONDRINAS","LAS HERAS","LAVALLE","LEANDRO N. ALEM","LEANDRO N. ALEM (N)","LEON PALLIERE","LEONARDO DA VINCI","LEOPOLDO LUGONES","LEYES OBRERAS","LIA Y GERARDO SZERZON","LIBERTAD","LIBORIO SOSA","LINIERS","LITO FICCO","LITO FICCO (N)","LLAO LLAO","LLAY LLAY","LOPE DE VEGA","LORENZO SUAREZ DE FIGUEROA","LOS ALERCES","LOS CEIBOS","LOS GUARANIES","LOS GUARANIES (N)","LOS INCAS","LOS INMIGRANTES","LOS JAGÜELES","LOS PUNTANOS","LOS TORDOS","LUCIA PLACCI DE ZORZIN","LUCIANO SUBIRACHS","LUIS FEDERICO LELOIR","LUIS GENTILE","LUIS NORBERTO GANZER","LUIS PASTEUR","LUIS REINAUDI","M. CERVANTES SAAVEDRA","M. CERVANTES SAAVEDRA (N)","MACACHA GÜEMES","MADRE MERCEDES DEL NIÑO JESUS","MAESTRO VASCO ZACCARIA","MAGALLANES","MAIPU","MAIPU (N)","MANCO CAPAC","MANSILLA","MANUEL ANDRADA","MANUEL ANTONIO ACEVEDO","MANUEL CORONEL","MANUEL MUJICA LAINEZ","MANUEL NOROÑA","MANUEL ORDOÑEZ","MANUEL PUEBLA","MANUEL SARSFIELD","MANUEL SAVIO","MANUEL UGARTE","MANUELA CABRAL","MANUELITA ROSAS","MAR CHIQUITA","MARCELO T. DE ALVEAR","MARCOS LLOVERAS","MARIA BENITA ARIAS","MARIA EVA DUARTE DE PERON","MARIA LAFORGUE","MARIA LORETO SANCHEZ DE PEON FRIAS","MARIA OLGUIN","MARIA REMEDIOS DEL VALLE","MARIA TERESA BACIGALUPO","MARIANO BOEDO","MARIANO FRAGUEIRO","MARIANO LONGARINI","MARIANO LOPEZ COBO","MARIANO MORENO","MARIANO SANCHEZ DE LORIA","MARIQUITA SANCHEZ DE THOMPSON","MARTIN DE PUEYRREDON","MARTIN FIERRO","MARTIN FIERRO (N)","MARTIRES RIOCUARTENSES","MATACOS","MATIAS NOLASCO","MATILDE PINO","MAYOR EGIDIO SOSA","MEJICO","MENDOZA","MERCEDARIO","MIGUEL A. TABOADA","MIGUEL ANGEL","MIGUEL JUAREZ CELMAN","MIGUEL S. TUGORES","MIGUEL UNAMUNO","MIRIAM IRENE DEMICHELIS","MISIONES","MISTOL","MITRE","MOISES IRUSTA","MOISES VALENTINUZZI","MOLLE","Mons. HECTOR ISIDRO PEREYRA","MONTEVIDEO","Mtro. JUAN PISTARINI","Myor. JUAN DE DIOS LOPEZ","NATALIO J. CASTAGNO","NELIO P. GUALPA","NESTOR FELIPE PRINCE","NEUQUEN","NICANOR CARRANZA LUCERO","NICARAGUA","NICOLAS AVELLANEDA","NICOLAS DI SANTO","NICOLAS FALCONE","NICOLAS FINOLA","NICORINO D\u0027ONOFRIO","NUMERO 1","NUMERO 10","NUMERO 11","NUMERO 12","NUMERO 13","NUMERO 14","NUMERO 15","NUMERO 16","NUMERO 18","NUMERO 2","NUMERO 20","NUMERO 21","NUMERO 23","NUMERO 24","NUMERO 3","NUMERO 35","NUMERO 37","NUMERO 39","NUMERO 4","NUMERO 5","NUMERO 55","NUMERO 57","NUMERO 6","NUMERO 7","NUMERO 8","Ob. LEOPOLDO BUTELER (E)","Ob. LEOPOLDO BUTELER (O)","OLEGARIO V. ANDRADE","OLIVERIO GIRONDO","OLONGASTAS","OMAGUACAS","OMAR GONET","OMBU","ONAS","ONCATIVO","ORQUIDEA","OSCAR FICCO","OSVALDO SORIANO","PABLO HERMINIO LAS HERAS","PABLO R. CANEPA","PACHAMAMA","PAMPAS","PANAMA","PANCHA HERNANDEZ","PARAGUAY","PARANA","PARTERA TERESA ROMANO DE MONTES","PASO DE LOS ANDES","PATAGONES","PATRICIAS MENDOCINAS","PATRICIOS","PAUL GROUSSAC","PAUL HARRIS","PAULA MONTAL","PAULINO MIGUEL VALLEJO","PAUNERO","Pcia. DE LA RIOJA","PEDERNERA","PEDRO F. URIARTE","PEDRO GOYENA","PEDRO GRENON","PEDRO INCHAUSPE","PEDRO JOSE ALMIRON","PEDRO JOSE MATAS BOVER","PEDRO L. GALLO","PEDRO M. ARAOZ","PEDRO MEDRANO","PEDRO NOLASCO RODRIGUEZ","PEDRO NOLASCO RODRIGUEZ (N)","PERIODISTAS RIOCUARTENSES","PERITO FRANCISCO MORENO","PERU","PIERINO ROSSO","PIO ROTELLI","Pje. MAIPU","PLUMERILLO","POGAS","POTRERILLO","PRESIDENTE PERON (C)","PRESIDENTE PERON (E)","PRESIDENTE PERON (O)","PRIMERA JUNTA","PRINGLES","Prof. CARLOS R. SARANDON","Pte. ARTURO U. ILLIA","PUBLICA","PUBLICA (CERRADA)","PUBLICA NUMERO 10","PUBLICA NUMERO 12","PUBLICA NUMERO 4","PUBLICITARIOS ARGENTINOS","PUBLICO","PUELCHES","PUENTE DEL INCA","QUEBRACHO","QUENA","QUINA ROJA","RAFAEL J. BRUNO","RAFAEL OBLIGADO","RAFAELA ORLANDO","RAMONITA CABELLO","RANQUELES","RAUL FIORI","RECONQUISTA","REFORMA UNIVERSITARIA DE 1918","REGIMIENTO 14 DE INFANTERIA","REGIMIENTO 14 DE INFANTERIA (O)","REGION PIEMONTE","REINA MORA","REMEDIOS DE ESCALADA","RENE FAVAROLO","RENE SALAMANCA","REPUBLICA ARABE SIRIA","REPUBLICA DEL LIBANO","REYNALDO VILLARREAL","RICARDO BALBIN","RICARDO CARPANI","RICARDO GÜIRALDES","RICARDO GUTIERREZ","RICARDO GUTIERREZ (N)","RICARDO PEDRAZZA","RICARDO ROJAS","RICARDO WAGNER","RIO COLORADO","RIO DE LA PLATA","RIO DE LA PLATA (N)","RIO DE LAS BARRANCAS","RIO DESEADO","RIO GALLEGOS","RIO GRANDE","RIO JURAMENTO","RIO LIMAY","RIO NEGRO","RIO NIHUIL","RIO PILCOMAYO","RIO PILCOMAYO (N)","RIO PRIMERO","RIO QUINTO","RIO SEGUNDO","RIO TERCERO","RIO TURBIO","RIOJA","RIVADAVIA","RIVERA INDARTE","ROBERTO ARLT","ROBERTO E. HOEVEL","ROBERTO FONTANARROSA","ROBERTO J. PAYRO","ROBLES","RODOLFO GOMEZ","RODOLFO ORTEGA PEÑA","RODOLFO WALSH","ROMA","ROQUE SAENZ PEÑA","ROSA PECILE","ROSARIO DE SANTA FE","ROSARIO GIL","RUBEN AGÜERO","RUBEN ARESE","RUBEN DARIO","RUISEÑOR","RUY DIAZ DE GUZMAN","Rvdo. PADRE GENIALE SILVI","Rvdo. PADRE GENIALE SILVI (N)","SAAVEDRA","SADI CARNOT","SAGRADA FAMILIA","SAINT REMY","SALTA","SALUSTIANO MARTINEZ","SAN ANTONIO DE PADUA","SAN CAYETANO","SAN FRANCISCO DE SALES","SAN JOSE DE CALASANZ","SAN JUAN","SAN LORENZO","SAN LUIS","SAN MARTIN","SAN PANTALEON","SANAVIRONES","SANTA CRUZ","SANTA FE","SANTA ROSA","SANTIAGO CORONEL","SANTIAGO DEL ESTERO","SANTIAGO DRAGO","SANTO DOMINGO","SANTOS VEGA","SARA ZIMERMAN","SARMIENTO","SARRATEA","SATURNINO SEGUROLA","SAUL TABORDA","SCHUBERT","SEBASTIAN VERA","SECUNDINO DIAZ DE BEDOYA","SEN DEL CAMPO","SEVERO VIETRI","Sgto. CABRAL","SHAKESPEARE","SIMON OSTWALD","SOBREMONTE","SOBREMONTE (N)","SOCO-SOCO","SOFIA C. DE PUEBLA","Srtas. CEJAS","STEPHENSON","SUCRE","SUIPACHA","SUSANA LEONOR MICHELOTTI","TABAQUILLO","TABLADA","TALA","TALAR","TAMBOR DE TACUARI","TEHUELCHES","TEODORO SANCHEZ DE BUSTAMANTE","TERESA MAGDALENA FRUA","THOMAS JEFFERSON","TIERRA DEL FUEGO","TIMBO","TINCUNACO","TITO CABRERA","TOMAS A. EDISON","TOMAS GODOY CRUZ","TOMAS GUIDO","TOMAS M. DE ANCHORENA","TOMAS M. DE ANCHORENA (N)","TRABAJO Y PREVISION","TRAPALANDA","TREJO Y SANABRIA","TRISTAN BURGOS","TRISTAN BURGOS (N)","TUCUMAN","TULIO REYNA","TUPUNGATO","UBALDO GARIMALDI","UNION DE LOS ARGENTINOS (C)","UNION DE LOS ARGENTINOS (E)","UNION DE LOS ARGENTINOS (O)","URBANO ALVAREZ","URQUIZA","URUGUAY","USHUAIA","Vcdro. MARAMBIO","VELEZ SARSFIELD","VENEZUELA","VIA MITRE","VICENTE BECCARINI","VICENTE LOPEZ Y PLANES","VICTOR BARRIONUEVO IMPOSTI","VICTOR HUGO","VICTORIA Y SILVINA OCAMPO","VILELAS","VILLAVICENCIO","VIRACOCHA","VIRREY VERTIZ","VUELTA DE OBLIGADO","WENCESLAO TEJERINA","WENCESLAO TEJERINA (N)","WERFIL PIÑERO","YAMANAS","YANQUETRUZ","YAPEYU","YARAVI","ZORAIDA BLANCO","ZORZAL","ZUNDER"], // fuente: Calle.k.xlsx (columna «nombre»), sin repetir
+  canalDerechos: '[COMPLETAR (Estadística): canal]',
+  inclusion: 'Correo: dptoinclusion.discapacidad@gmail.com · Tel.: 4768410 (int. 502) / 4768412 (opción 4) · Cel.: 358 411 5682 · Horario: 8:00 a 14:00 h · Instagram: DISCAPACIDADR4 · Dirección: Bv. Almafuerte al 300'
+};
+const PROGRAMAS = [
+  { v: 'Departamento de Inclusión', d: 'orientación y articulación en red para el ejercicio de derechos', contacto: LISTAS.inclusion },
+  { v: 'Talleres inclusivos', d: 'para adolescentes y adultos desde los 16 años', min16: true, contacto: 'Correo: programatalleresinclusivos@gmail.com' },
+  { v: 'Departamento de Inclusión Laboral', d: 'acompañamiento personalizado, talleres de orientación y búsqueda activa de empleo', contacto: 'Tel.: 358 411 2875 · Correo: inclusionlaboraldis@gmail.com' },
+  { v: 'Taller Protegido Municipal “Dra. Carolina Tobar García”', d: 'formación laboral, producción y comercialización', contacto: 'Dirección: Bv. Almafuerte 300 · Tel.: 358 483 7074 · Correo: tobargariere@gmail.com · Web: www.portaldelandino.tiendanegocio.com' },
+  { v: 'Centro 11. Programa de deportes adaptados', contacto: null }
+];
+const CONSENT_VERSION = 'v3';
+const CANAL_URL = new URLSearchParams(location.search).get('canal');
+
+/* ============ utilidades ============ */
+const fmt = n => '$' + Math.round(n).toLocaleString('es-AR');
+const mk = s => String(s).replace(/\[(COMPLETAR|AJUSTAR)[^\]]*\]/g, m => '<mark class="todo">' + m + '</mark>');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const norm = o => typeof o === 'string' ? { v: o } : o;
+const OTRO = (t = 'indique cuál') => ({ v: 'Otro', label: 'Otro', other: true, otherLabel: 'Indique ' + t.replace(/^indique /, '') });
+function ageOf(d) {
+  if (!d) return null; const b = new Date(d + 'T00:00:00'); if (isNaN(b)) return null;
+  const t = new Date(); let a = t.getFullYear() - b.getFullYear(); const m = t.getMonth() - b.getMonth();
+  if (m < 0 || (m === 0 && t.getDate() < b.getDate())) a--; return a;
+}
+const has = (arr, v) => Array.isArray(arr) && arr.includes(v);
+const empty = v => v === undefined || v === null || v === '' || (Array.isArray(v) && v.length === 0) || v === false;
+
+/* ============ listas de opciones compartidas ============ */
+const VINCULOS = ['Madre o padre', 'Hijo/a', 'Hermano/a', 'Cónyuge o pareja', 'Abuelo/a', 'Tutor/a legal o curador/a',
+  'Apoyo designado judicialmente (incluye situaciones anteriores de curatela, CCyC Código Civil y Comercial)', 'Cuidador/a no familiar', OTRO()];
+const APOYOS = [
+  { v: 'Apoyo humano o asistencia personal', d: 'Cuidadores, acompañantes terapéuticos, asistentes domiciliarios o familiares que realizan tareas de cuidado.' },
+  { v: 'Apoyo técnico o tecnológico', d: 'Sillas de ruedas, audífonos, bastones, prótesis, software de lectura de pantalla y otras ayudas técnicas.' },
+  { v: 'Apoyo terapéutico o médico', d: 'Rehabilitación, terapias, medicación, controles de salud.' },
+  { v: 'Apoyo institucional o comunitario', d: 'Escuelas especiales, centros de día, talleres, hogares, organizaciones o grupos de pares.' },
+  { v: 'Apoyo pedagógico o escolar', d: 'Maestra/o integrador/a, adaptaciones curriculares, tutorías, transcripciones a braille u otros formatos accesibles.' },
+  { v: 'Otro apoyo', other: true, otherLabel: 'Indique cuál' }
+];
+const WG_OPTS = ['No tiene ninguna dificultad', 'Tiene cierta dificultad', 'Tiene mucha dificultad', 'Le resulta imposible', 'Prefiero no responder'];
+const BAR_OPTS = ['Sin barreras', 'Algunas barreras', 'Muchas barreras', 'No sé / No aplica'];
+const DOC_DETALLE = {
+  'DNI disponible': ['DNI vigente', 'DNI pendiente de actualización'],
+  'DNI no disponible': ['DNI vencido', 'DNI extraviado o robado'],
+  'Documentación extranjera': ['Cuenta con documento de identidad extranjero', 'Residencia precaria o documentación migratoria en trámite']
+};
+const progOpts = () => [
+  ...PROGRAMAS.map(p => ({ v: p.v, label: p.d ? `${p.v} (${p.d})` : p.v, when: p.min16 ? (h, p_, c) => c.age !== null && c.age >= 16 : null })),
+  OTRO()
+];
+const matrix = (rows, opts, extra = {}) => rows.map(r => ({ n: r[0], var: r[1], type: 'radio', label: r[2], opts, matrix: true, ...extra }));
+
+/* ============ textos fijos ============ */
+const BIENVENIDA = `<section class="intro">
+<p><strong>Relevamiento Situacional Autogestionado de Personas en Situación de Discapacidad · Río Cuarto</strong></p>
+<p>Este relevamiento es una iniciativa de la Secretaría de Desarrollo Comunitario y de la Secretaría de Gestión y Participación Ciudadana del Gobierno de Río Cuarto, a través de la Dirección de Estadística, Control de Calidad y Procesos. Quiere conocer cómo viven las personas en situación de discapacidad de la ciudad (condiciones de vida, accesibilidad, apoyos, salud, educación, trabajo y participación) para planificar mejores políticas y programas.</p>
+<p>Es voluntario y <strong>no es anónimo</strong>: te pedimos nombre, documento y domicilio para evitar duplicados, contactarte y acompañarte en el acceso a programas y beneficios. Nunca publicamos datos individuales.</p></section>
+<section class="intro">
+<p><strong>No participar no afecta su acceso a ningún programa ni beneficio.</strong></p>
+<p>Lo completa la propia persona o un familiar o referente en su representación; en el caso de niños, niñas y adolescentes, completa su madre, padre, tutor/a o referente. Se completa <strong>una vez por hogar</strong>: si en tu hogar viven varias personas en situación de discapacidad, vas a poder cargar a cada una.</p>
+<p><button type="button" class="btn sec" data-ayuda aria-haspopup="dialog">Ayuda e información del relevamiento</button></p></section>`;
+const AYUDA = `
+<p><strong>¿Necesitás ayuda para completarlo?</strong> Escribinos a dptoinclusion.discapacidad@gmail.com, llamá al 4768410 (interno 502) o al 4768412 (opción 4), o escribí al celular 358 411 5682, de 8:00 a 14:00 h. También estamos en Instagram: DISCAPACIDADR4, o nos encontrás en Bv. Almafuerte al 300.</p>
+<p>¡Gracias por participar!</p>
+<p class="hint">Recepción de respuestas hasta el [COMPLETAR (Subsecretaría)] · Código: [COMPLETAR (Estadística): código del formulario] · Vigencia: [COMPLETAR (Estadística)]</p>`;
+const ESTANDARES = `
+<h3>Estándares utilizados</h3>
+<p>Este relevamiento utiliza estándares nacionales e internacionales validados:</p>
+<ul>
+<li><strong>Identificación funcional, 18 años o más:</strong> Lista breve de preguntas sobre la discapacidad del Grupo de Washington (WG-SS), traducción al español, versión de junio de 2020.</li>
+<li><strong>Identificación funcional, 2 a 17 años:</strong> Módulo sobre el funcionamiento en niños y niñas de UNICEF y el Grupo de Washington, traducción al español de UNICEF (2018).</li>
+<li><strong>Condiciones de vida:</strong> categorías de vivienda, condición de actividad y género adaptadas de las utilizadas en los censos del INDEC 2022 [COMPLETAR (Estadística): verificar la correspondencia].</li>
+<li><strong>Ingresos del hogar:</strong> Canasta Básica Total del INDEC como valor de referencia [COMPLETAR (Estadística): mes de referencia al lanzamiento].</li>
+</ul>
+<p>Se realizaron adaptaciones de lenguaje local (por ejemplo, “anteojos” y “audífonos”). Marco normativo: Ordenanza 1047/18 y su modificatoria 458/26, Ordenanza 162/25 y Ley 25.326.</p>`;
+const CONSENTIMIENTO = `<section class="intro">
+<h3>Consentimiento informado</h3>
+<p>Declaro que la información que brindo es voluntaria y veraz. No participar no afecta mi acceso a ningún programa ni beneficio. Los datos se tratan de manera confidencial, conforme a la Ley Nacional 25.326 de Protección de los Datos Personales y a la Ordenanza 162/25, y se usan para fines estadísticos y de planificación de políticas públicas municipales y para la gestión, asignación y seguimiento individualizado de programas y prestaciones sociales municipales para personas en situación de discapacidad.</p>
+<p>Este relevamiento <strong>no es anónimo</strong>: mis datos identificatorios se asocian a la información relevada para los fines individuales antes descriptos. Los datos identificatorios no se publican y los informes estadísticos son agregados.</p>
+<p>Si completo el formulario en representación de otra persona, lo hago con su conocimiento y consentimiento, cuando corresponda. Puedo pedir en cualquier momento el acceso, la rectificación o la supresión de mis datos por ${LISTAS.canalDerechos}.</p></section>`;
+
+/* ============ PREGUNTAS ============ */
+const notPropia = h => h.quien && h.quien !== 'La propia persona en situación de discapacidad';
+const PAGES = [];
+
+PAGES.push({ id: 'bienvenida', scope: 'h', title: 'Bienvenida y consentimiento informado', intro: BIENVENIDA + CONSENTIMIENTO, introRaw: true, qs: [
+  { n: '1', var: 'consent', type: 'consent', label: 'He leído y acepto el consentimiento informado y el tratamiento de mis datos, incluido su carácter nominativo, tal como se describe más arriba.' }
+]});
+
+PAGES.push({ id: 'b1', scope: 'h', part: 'Parte A · Una vez por hogar', title: 'Bloque 1 · Consentimiento, canal de llegada y quién completa', qs: [
+  { n: '2', var: 'canal', type: 'radio', label: '¿Por qué medio llegó a este formulario?', when: () => !CANAL_URL, opts: [
+    'Redes sociales (Instagram, Facebook u otras)', 'Concejo Deliberante', 'Defensoría del Pueblo', 'Centro de Gestión Municipal (CGM)', 'Junta de Discapacidad',
+    'Instituciones que trabajan con personas con discapacidad.', 'Universidades', 'Centro de salud u hospital', 'Escuela o institución educativa',
+    'Centro vecinal, club u organización comunitaria', 'Dirección de Estadística, Control de Calidad y Procesos (atención presencial, telefónica o por correo)',
+    'Sitio web o aplicaciones de la Municipalidad', 'Cartelería, folletos o código QR en la vía pública', 'Radio, televisión o diarios',
+    'Familiar, amistad o vecino/a', OTRO()] },
+  { n: '3', var: 'quien', type: 'radio', label: '¿Quién completa este formulario?', opts: [
+    'La propia persona en situación de discapacidad', 'Un familiar, en representación de la persona',
+    'Un referente o cuidador/a, en representación de la persona', 'Otra persona, en representación de la persona'] },
+  { n: '3.1', var: 'quien_nombre', type: 'text', layer: 'registro', label: 'Datos de quien completa en representación: Nombre y apellido', when: notPropia },
+  { n: '3.1', var: 'quien_dni', type: 'text', layer: 'registro', label: 'Datos de quien completa en representación: DNI', hint: '7 u 8 dígitos, sin puntos.', inputmode: 'numeric', when: notPropia,
+    validate: v => /^\d{7,8}$/.test(v) ? '' : 'El DNI debe tener 7 u 8 dígitos, sin puntos.' },
+  { n: '3.1', var: 'quien_vinculo', type: 'select', layer: 'registro', label: 'Datos de quien completa en representación: Vínculo con la persona', hint: 'El teléfono de contacto no se repite: se toma de P7.', opts: VINCULOS, when: notPropia },
+  { n: '3.2', var: 'quien_decl', type: 'consent', label: 'Declaro completar este formulario con conocimiento y consentimiento de la persona en situación de discapacidad, cuando corresponda.', when: notPropia }
+]});
+
+PAGES.push({ id: 'b2', scope: 'h', part: 'Parte A · Una vez por hogar', title: 'Bloque 2 · Identificación del hogar', qs: [
+  { n: '4', var: 'reside', type: 'radio', label: '¿La persona en situación de discapacidad reside en la ciudad de Río Cuarto?', opts: [
+    'Sí, de forma permanente', 'Sí, de forma temporaria (por ejemplo, por estudio, trabajo o tratamiento)', 'No'] },
+  { n: '5', var: 'domicilio_calle', type: 'street', layer: 'registro', label: 'Domicilio en Río Cuarto: calle', hint: 'Escriba parte del nombre y elija la calle de la lista. Se asigna a un barrio y no se publica.' },
+  { n: '5', var: 'domicilio_altura', type: 'text', layer: 'registro', inputmode: 'numeric', unknown: 'Sin número', label: 'Domicilio en Río Cuarto: altura (número)', hint: 'Solo números.',
+    validate: v => v === 'Sin número' || /^\d{1,5}$/.test(v) ? '' : 'Ingrese la altura solo con números, o marque «Sin número».' },
+  { n: '6', var: 'barrio', type: 'select', label: 'Barrio', opts: () => [...LISTAS.barrios, OTRO('el barrio')] },
+  { n: '7', var: 'telefono', type: 'tel', layer: 'registro', label: 'Teléfono de contacto del hogar', hint: 'Con código de área, solo números.',
+    validate: v => (v.replace(/\D/g, '').length >= 6 && /^[\d\s\-()+]+$/.test(v)) ? '' : 'Ingrese un teléfono válido (solo números).' },
+  { n: '8', var: 'correo', type: 'email', layer: 'registro', optional: true, label: 'Correo electrónico',
+    validate: v => !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : 'Ingrese un correo electrónico válido.' },
+  { n: '9', var: 'hogar_personas', type: 'number', min: 1, max: 20, label: 'Cantidad de personas que viven en el hogar (incluida la persona en situación de discapacidad)',
+    validate: v => (Number.isInteger(+v) && +v >= 1 && +v <= 20) ? '' : 'Ingrese un número entero entre 1 y 20.' },
+  { n: '10', var: 'hogar_pcd', type: 'number', min: 1, max: 10, label: 'Cantidad de personas en situación de discapacidad que viven en el hogar',
+    validate: (v, h) => !(Number.isInteger(+v) && +v >= 1 && +v <= 10) ? 'Ingrese un número entero entre 1 y 10.' : (+v > +h.hogar_personas ? 'No puede superar la cantidad de personas del hogar (P9).' : '') }
+]});
+
+const C = LISTAS.canasta.valor;
+PAGES.push({ id: 'b3', scope: 'h', part: 'Parte A · Una vez por hogar', title: 'Bloque 3 · Vivienda y condiciones de vida del hogar', qs: [
+  { n: '11', var: 'vivienda', type: 'radio', label: 'Tipo de vivienda', opts: [
+    'Casa (con salida directa al exterior)', 'Departamento (en edificio o con espacios comunes)',
+    'Rancho o casilla (adobe, chapa, madera u otros materiales de baja resistencia)', 'Pieza en inquilinato, hotel familiar o pensión (habitación en vivienda compartida)',
+    'Local no construido para habitación (comercio, garaje o depósito adaptado para vivir)', 'Vivienda móvil (casa rodante, carpa u otra)',
+    'Vivienda colectiva (institución: hogar, hospital, hotel, cuartel, etc.)'] },
+  { n: '12', var: 'tenencia', type: 'radio', label: 'Tenencia de la vivienda', opts: ['Propia', 'Alquilada', 'Prestada', 'Ocupada', { v: 'Otra', other: true, otherLabel: 'Indique la situación' }, 'Prefiero no responder'] },
+  { n: '13', var: 'viv_acc', type: 'radio', label: '¿La vivienda es accesible para la persona en situación de discapacidad (o para las personas, si hay más de una)?', opts: ['Sí, totalmente', 'Parcialmente', 'No'] },
+  { n: '13.1', var: 'viv_acc_barreras', type: 'checks', label: '¿Qué barreras tiene la vivienda?', hint: 'Puede marcar varias.', when: h => h.viv_acc === 'Parcialmente' || h.viv_acc === 'No', opts: [
+    'Escalones o desniveles en el acceso', 'Puertas o pasillos angostos', 'Baño no adaptado', 'Dormitorio o cocina no adaptados',
+    'Falta de rampa o ascensor (en edificios)', 'Falta de iluminación, barandas o señales', OTRO()] },
+  { n: '14', var: 'servicios', type: 'checks', label: 'Servicios con los que cuenta la vivienda', hint: 'Puede marcar varios.', opts: [
+    'Agua potable de red', 'Cloacas', 'Gas natural', 'Electricidad', { v: 'Ninguno de los anteriores', excl: true }] },
+  { n: '15', var: 'internet', type: 'radio', label: '¿Tiene acceso a internet en el hogar?', opts: ['Sí, conexión fija (wifi)', 'Sí, solo con datos del celular', 'No tiene acceso'] },
+  { n: '16', var: 'ingreso_canastas', type: 'radio', label: 'Sumando lo que cobran todas las personas que viven en el hogar, ¿cuánto dinero entra por mes? (Incluye sueldos, jubilaciones, pensiones, asignaciones, planes, changas y ayuda de familiares. Si no sabe el monto exacto, elija la opción más parecida.)',
+    hint: 'Valores de referencia: ' + LISTAS.canasta.fuente + ': ' + fmt(C) + '. [COMPLETAR (Estadística): definir región de referencia y ajuste por tamaño del hogar]', opts: [
+    'Sin ingresos', `Hasta 1 canasta básica (hasta ≈ ${fmt(C)})`, `Más de 1 y hasta 2 canastas básicas (entre ≈ ${fmt(C)} y ≈ ${fmt(2 * C)})`,
+    `Más de 2 canastas básicas (más de ≈ ${fmt(2 * C)})`, 'Prefiero no responder'] },
+  { n: '17', var: 'nec_basicas', type: 'radio', label: '¿Considera que las necesidades básicas del hogar (alimentación, salud y servicios) están cubiertas?', opts: ['Totalmente', 'Parcialmente', 'No'] }
+]});
+
+/* ---- Parte B (repetible) ---- */
+const PB = 'Parte B · Por cada persona en situación de discapacidad';
+const PERSON_PAGES = [];
+PERSON_PAGES.push({ id: 'b4', scope: 'p', part: PB, title: 'Bloque 4 · Datos de la persona en situación de discapacidad', qs: [
+  { n: '18', var: 'nombre', type: 'text', layer: 'registro', label: 'Nombre y apellido' },
+  { n: '19', var: 'doc_grupo', type: 'select', label: 'Situación documental', opts: [
+    'DNI disponible', 'DNI no disponible', 'Nunca tuvo DNI', 'Identidad en proceso: cuenta con Certificado de Pre-identificación (CPI)',
+    'Documentación extranjera', 'Sin documentación: no cuenta con documentación que acredite identidad', 'Otra situación / requiere orientación'] },
+  { n: '19.1', var: 'doc_detalle', type: 'select', label: 'Detalle de la situación documental', when: (h, p) => !!DOC_DETALLE[p.doc_grupo],
+    opts: Object.entries(DOC_DETALLE).flatMap(([g, list]) => list.map(v => ({ v, when: (h, p) => p.doc_grupo === g }))) },
+  { n: '19.2', var: 'doc_numero', type: 'text', layer: 'registro', label: 'Número de documento (DNI o el que corresponda)', inputmode: 'text',
+    hint: 'DNI: 7 u 8 dígitos, sin puntos. Para las personas argentinas, el DNI tiene una primera actualización entre los 5 y los 8 años y una segunda a partir de los 14 años. No son tres vencimientos independientes, sino instancias de actualización documental.',
+    when: (h, p) => p.doc_grupo && !['Nunca tuvo DNI', 'Sin documentación: no cuenta con documentación que acredite identidad', 'Otra situación / requiere orientación'].includes(p.doc_grupo),
+    validate: (v, h, p, c) => {
+      const dni = p.doc_grupo === 'DNI disponible' || p.doc_grupo === 'DNI no disponible';
+      if (dni && !/^\d{7,8}$/.test(v)) return 'El DNI debe tener 7 u 8 dígitos, sin puntos.';
+      if (!dni && !/^[A-Za-z0-9.\-]{4,20}$/.test(v)) return 'Ingrese un número de documento válido.';
+      const k = v.replace(/\D/g, '') || v; const dup = STATE.p.some((o, i) => i !== c.idx && o.doc_numero && (o.doc_numero.replace(/\D/g, '') || o.doc_numero) === k);
+      return dup ? 'Este documento ya fue cargado para otra persona de este hogar.' : '';
+    } },
+  { n: '19.3', var: 'doc_acomp', type: 'radio', label: '¿Necesita acompañamiento para regularizar su documentación?', when: (h, p) => !!p.doc_grupo && p.doc_detalle !== 'DNI vigente', opts: ['Sí', 'No', 'No sabe / necesita orientación'] },
+  { n: '20', var: 'nacimiento', type: 'date', label: 'Fecha de nacimiento', hint: 'Día, mes y año.',
+    validate: (v, h) => {
+      const a = ageOf(v); if (a === null) return 'Ingrese una fecha válida.';
+      if (new Date(v + 'T00:00:00') > new Date()) return 'La fecha no puede ser posterior a hoy.';
+      if (a > 120) return 'Revise la fecha de nacimiento.';
+      if (a < 18 && h.quien === 'La propia persona en situación de discapacidad') return 'Esta persona es menor de 18 años: el formulario debe completarlo su representante. Vuelva al Bloque 1 (P3) para indicar quién completa.';
+      return '';
+    } },
+  { n: '21', var: 'genero', type: 'radio', label: 'Género', opts: ['Mujer', 'Varón', 'Mujer trans / travesti', 'Varón trans / masculinidad trans', 'No binario', 'Otra identidad / ninguna de las anteriores', 'Prefiero no responder'] },
+  { n: '22', var: 'convivencia', type: 'checks', copyPrev: true, label: '¿Con quién convive la persona en situación de discapacidad?', hint: 'Puede marcar varias.', opts: [
+    { v: 'Vive sola/o', excl: true }, 'Pareja o cónyuge', 'Hijos/as', 'Madre y/o padre', 'Hermanos/as', 'Abuelos/as', 'Otros familiares',
+    'Personas no familiares (amistades, compañeros/as de vivienda)', 'Cuidador/a que vive en el hogar', OTRO()],
+    validate: (v, h) => has(v, 'Vive sola/o') && (+h.hogar_personas !== 1 || +h.hogar_pcd !== 1) ? 'Si vive sola/o, la cantidad de personas del hogar (P9) y de personas en situación de discapacidad (P10) deben ser 1.' : '' }
+]});
+
+const adult = (h, p, c) => c.age !== null && c.age >= 18;
+PERSON_PAGES.push({ id: 'b5', scope: 'p', part: PB, title: 'Bloque 5 · Dificultades en actividades cotidianas', qs: [
+  { type: 'info', when: adult, html: c => `<div class="intro"><p>Las preguntas siguientes se refieren a las dificultades que ${c.usted ? 'usted' : 'la persona'} pueda tener al realizar ciertas actividades a causa de un problema de salud. Indicar la dificultad aun cuando use anteojos, audífonos, bastón u otra ayuda.</p><p class="hint">Responda una opción en cada fila.</p></div>` },
+  ...matrix([
+    ['23', 'wg_ver', '¿Tiene dificultad para ver, incluso cuando usa anteojos o lentes?'],
+    ['24', 'wg_oir', '¿Tiene dificultad para oír, incluso cuando usa audífono?'],
+    ['25', 'wg_caminar', '¿Tiene dificultad para caminar o subir escalones?'],
+    ['26', 'wg_recordar', '¿Tiene dificultad para recordar o concentrarse?'],
+    ['27', 'wg_cuidado', '¿Tiene dificultad para valerse por sí mismo/a, como lavarse el cuerpo o vestirse?'],
+    ['28', 'wg_comunicar', 'Cuando emplea su lenguaje habitual, ¿tiene dificultad para comunicarse, por ejemplo, para entender a los demás o para que lo/la entiendan?']
+  ], WG_OPTS, { when: adult }),
+  { type: 'info', when: (h, p, c) => c.age !== null && c.age >= 5 && c.age <= 17, html: () => `
+    <div class="intro"><p><strong>5B · Niños, niñas y adolescentes de 5 a 17 años</strong> (módulo infantil: 24 preguntas, códigos oficiales CF1 a CF24). Responde la madre o la persona que cuida principalmente al niño, niña o adolescente.</p>
+    <p>[COMPLETAR (Subsecretaría): la reproducción del texto literal requiere autorización previa de UNICEF, que se concede sin costo a organizaciones sin fines de lucro (data@unicef.org)] [COMPLETAR (Estadística): cargar el texto literal y verificar el criterio de identificación en la guía analítica oficial del módulo]</p></div>
+    <div class="tablewrap"><table><thead><tr><th>Código</th><th>Dominio</th><th>Contenido (resumen, no es la redacción oficial)</th></tr></thead><tbody>
+    <tr><td>CF1 a CF3</td><td>Visión</td><td>Si usa gafas o lentes de contacto y su dificultad para ver (con ellos, si los usa). Escala de dificultad de 4 categorías.</td></tr>
+    <tr><td>CF4 a CF6</td><td>Audición</td><td>Si usa prótesis auditiva y su dificultad para oír sonidos como voces o música (con ella, si la usa).</td></tr>
+    <tr><td>CF7 a CF13</td><td>Movilidad</td><td>Si usa dispositivo o recibe ayuda para caminar y su dificultad para caminar 100 y 500 metros en terreno llano, con y sin ayuda o en comparación con niños de su edad, con saltos según las respuestas.</td></tr>
+    <tr><td>CF14</td><td>Autocuidado</td><td>Dificultad para valerse por sí mismo/a (por ejemplo, comer o vestirse solo/a).</td></tr>
+    <tr><td>CF15 y CF16</td><td>Comunicación</td><td>Dificultad para ser entendido/a por las personas del hogar y por las ajenas al hogar.</td></tr>
+    <tr><td>CF17</td><td>Aprendizaje</td><td>Dificultad para aprender cosas en comparación con niños de su edad.</td></tr>
+    <tr><td>CF18</td><td>Memoria</td><td>Dificultad para recordar cosas en comparación con niños de su edad.</td></tr>
+    <tr><td>CF19</td><td>Atención y concentración</td><td>Dificultad para concentrarse en las actividades que le gustan.</td></tr>
+    <tr><td>CF20</td><td>Aceptación del cambio</td><td>Dificultad para aceptar cambios en su rutina.</td></tr>
+    <tr><td>CF21</td><td>Control del comportamiento</td><td>Dificultad para controlar su comportamiento en comparación con niños de su edad.</td></tr>
+    <tr><td>CF22</td><td>Relaciones</td><td>Dificultad para hacer amigos/as.</td></tr>
+    <tr><td>CF23 y CF24</td><td>Afecto</td><td>Frecuencia con que se muestra muy ansioso/a, nervioso/a o preocupado/a, y muy triste o deprimido/a (escala de frecuencia, no de dificultad).</td></tr>
+    </tbody></table></div>` },
+  { type: 'info', when: (h, p, c) => c.age !== null && c.age >= 2 && c.age <= 4, html: () => `
+    <div class="intro"><p><strong>5C · Niños y niñas de 2 a 4 años</strong> (módulo infantil: 16 preguntas, códigos oficiales CF1 a CF16). Responde la madre o la persona que cuida principalmente al niño o la niña.</p>
+    <p>[COMPLETAR (Subsecretaría): la reproducción del texto literal requiere autorización previa de UNICEF, que se concede sin costo a organizaciones sin fines de lucro (data@unicef.org)] [COMPLETAR (Estadística): cargar el texto literal y verificar el criterio de identificación en la guía analítica oficial del módulo]</p></div>
+    <div class="tablewrap"><table><thead><tr><th>Código</th><th>Dominio</th><th>Contenido (resumen, no es la redacción oficial)</th></tr></thead><tbody>
+    <tr><td>CF1 a CF3</td><td>Visión</td><td>Si usa gafas y su dificultad para ver (con ellas, si las usa). Escala de dificultad de 4 categorías.</td></tr>
+    <tr><td>CF4 a CF6</td><td>Audición</td><td>Si usa prótesis auditiva y su dificultad para oír sonidos como voces o música (con ella, si la usa).</td></tr>
+    <tr><td>CF7 a CF10</td><td>Movilidad</td><td>Si usa dispositivo o recibe ayuda para caminar y su dificultad para caminar, con y sin ayuda o en comparación con niños de su edad.</td></tr>
+    <tr><td>CF11</td><td>Motricidad fina</td><td>Dificultad para agarrar objetos pequeños con la mano.</td></tr>
+    <tr><td>CF12 y CF13</td><td>Comunicación y comprensión</td><td>Dificultad del niño o la niña para entender a quien responde y de quien responde para entenderlo/a.</td></tr>
+    <tr><td>CF14</td><td>Aprendizaje</td><td>Dificultad para aprender cosas en comparación con niños de su edad.</td></tr>
+    <tr><td>CF15</td><td>Juego</td><td>Dificultad para jugar en comparación con niños de su edad.</td></tr>
+    <tr><td>CF16</td><td>Control del comportamiento</td><td>Frecuencia de patadas, mordidas o golpes a otros niños o adultos, en comparación con niños de su edad (escala de comparación).</td></tr>
+    </tbody></table></div>` },
+  { type: 'info', when: (h, p, c) => c.age !== null && c.age < 2, html: () => `<div class="intro"><p>Para menores de 2 años no se aplica instrumento funcional: se incorporan por el Art. 3 de la resolución (CUD, trámite o diagnóstico). Continúe con el bloque siguiente.</p></div>` }
+]});
+
+PERSON_PAGES.push({ id: 'b6', scope: 'p', part: PB, title: 'Bloque 6 · Autopercepción, Certificado Único de Discapacidad y criterio de inclusión', qs: [
+  { n: '29', var: 'tipo_disc', type: 'checks', label: 'Situación de discapacidad según su autopercepción', hint: 'Puede marcar varias. Las categorías siguen los tipos de discapacidad que se usan para el Certificado Único de Discapacidad (CUD).', opts: [
+    { v: 'Motora', d: 'Limitaciones para moverse, caminar, mantener el equilibrio o usar los brazos y las manos (por ejemplo, por parálisis, amputaciones, lesiones de columna o enfermedades neuromusculares).' },
+    { v: 'Visual', d: 'Ceguera o baja visión que no se corrige por completo con anteojos, lentes o cirugía.' },
+    { v: 'Auditiva', d: 'Sordera o hipoacusia (pérdida total o parcial de la audición), aun con audífonos o implantes.' },
+    { v: 'Intelectual (cognitiva)', d: 'Limitaciones para razonar, aprender, comprender y resolver situaciones de la vida diaria, que se presentan desde la infancia o la adolescencia.' },
+    { v: 'Psicosocial (salud mental)', d: 'Condiciones de salud mental (por ejemplo, esquizofrenia, trastorno bipolar o depresión grave) que, junto con las barreras del entorno, limitan la vida cotidiana y la participación.' },
+    { v: 'Visceral', d: 'Problemas en órganos o sistemas internos, como el corazón, los pulmones, los riñones, el aparato digestivo o el sistema inmunológico o metabólico (por ejemplo, insuficiencia renal o cardíaca).' },
+    OTRO(), { v: 'No sabe / No responde', excl: true }] },
+  { n: '30', var: 'cud', type: 'radio', label: '¿Posee Certificado Único de Discapacidad (CUD)?', opts: ['Sí', 'No', 'En trámite'] },
+  { n: '30.1', var: 'cud_venc', type: 'month', optional: true, unknown: 'No lo sé', label: 'Fecha de vencimiento del CUD (mes y año)', hint: 'Opcional.', when: (h, p) => p.cud === 'Sí',
+    validate: v => !v || v === 'No lo sé' || /^\d{4}-(0[1-9]|1[0-2])$/.test(v) ? '' : 'Ingrese mes y año (AAAA-MM).' },
+  { n: '30.2', var: 'cud_motivo', type: 'radio', label: '¿Por qué no tiene CUD?', when: (h, p) => p.cud === 'No', opts: [
+    'Desconoce el procedimiento', 'No sabe dónde tramitarlo', 'Tuvo dificultades con el trámite (turnos, traslados, estudios)', 'Lo tramitó y no se lo otorgaron',
+    'No lo considera necesario', OTRO(), 'No sabe / Prefiero no responder'] },
+  { n: '31', var: 'diagnostico', type: 'radio', label: '¿Tiene un diagnóstico o informe profesional que acredite su situación de discapacidad?', hint: 'No se pide el diagnóstico ni documentación.', opts: ['Sí', 'No', 'No sabe'] }
+]});
+
+PERSON_PAGES.push({ id: 'b7', scope: 'p', part: PB, title: 'Bloque 7 · Sistema de apoyos y cuidados', qs: [
+  { n: '32', var: 'apoyo_tipos', type: 'checks', label: '¿Qué tipos de apoyo recibe?', hint: 'Puede marcar varios.', opts: [
+    ...APOYOS, { v: 'Ninguno', excl: true }, { v: 'No sabe / no puede precisar', excl: true }] },
+  { n: '33', var: 'apoyo_necesita', type: 'radio', label: '¿Necesita apoyos que actualmente no recibe?', opts: ['Sí', 'No', 'No sabe / no puede precisar'] },
+  { n: '33.1', var: 'apoyo_necesita_tipos', type: 'checks', label: '¿Cuáles apoyos necesita?', hint: 'Puede marcar varios.', when: (h, p) => p.apoyo_necesita === 'Sí', opts: APOYOS },
+  { n: '34', var: 'cuid_vinculo', type: 'radio', label: '¿Quién es la persona cuidadora principal?', when: (h, p) => has(p.apoyo_tipos, 'Apoyo humano o asistencia personal'),
+    opts: [...VINCULOS.slice(0, -1), 'El cuidado se comparte entre varias personas', OTRO()] },
+  { n: '34.1', var: 'cuid_horas', type: 'radio', label: 'Horas diarias de cuidado', when: (h, p) => !!p.cuid_vinculo, opts: ['Menos de 2 horas', 'De 2 a 4 horas', 'Más de 4 y hasta 8 horas', 'Más de 8 horas', 'Todo el día'] },
+  { n: '34.2', var: 'cuid_trabajo', type: 'radio', label: '¿La persona cuidadora tuvo que reducir o dejar su trabajo para cuidar?', when: (h, p) => !!p.cuid_vinculo, opts: ['Sí, lo dejó', 'Sí, redujo sus horas', 'No', 'No corresponde'] },
+  { n: '34.3', var: 'cuid_descanso', type: 'radio', label: '¿La persona cuidadora cuenta con ayuda o tiempo de descanso?', when: (h, p) => !!p.cuid_vinculo, opts: ['Sí, regularmente', 'A veces', 'No'] }
+]});
+
+PERSON_PAGES.push({ id: 'b8', scope: 'p', part: PB, title: 'Bloque 8 · Salud', qs: [
+  { n: '35', var: 'salud_cob', type: 'checks', copyPrev: true, label: 'Cobertura de salud', hint: 'Puede marcar varias.', opts: ['Obra social', 'Prepaga', 'PAMI', 'Incluir Salud', { v: 'Solo sistema público (sin cobertura)', excl: true }] },
+  { n: '36', var: 'salud_acceso', type: 'radio', label: '¿Accede a los servicios de salud y rehabilitación que necesita?', opts: ['Sí, totalmente', 'Parcialmente', 'No'] },
+  { n: '36.1', var: 'salud_dif', type: 'radio', label: '¿Cuál es la principal dificultad para acceder?', when: (h, p) => p.salud_acceso === 'Parcialmente' || p.salud_acceso === 'No', opts: [
+    'Demora o falta de turnos', 'Distancia o falta de transporte', 'Costo', 'La cobertura no autoriza o no cubre la prestación',
+    'Falta de profesionales o servicios cercanos', 'Barreras de accesibilidad en el lugar de atención', 'Falta de información sobre dónde o cómo acceder', OTRO()] }
+]});
+
+PERSON_PAGES.push({ id: 'b9', scope: 'p', part: PB, title: 'Bloque 9 · Educación', when: (h, p, c) => c.age !== null && c.age >= 3, qs: [
+  { n: '37', var: 'edu_nivel', type: 'radio', label: 'Nivel educativo alcanzado', opts: [
+    'Sin instrucción', 'Nivel inicial (jardín o sala)', 'Primario incompleto', 'Primario completo', 'Secundario incompleto', 'Secundario completo',
+    'Terciario o universitario incompleto', 'Terciario o universitario completo'] },
+  { n: '38', var: 'edu_asiste', type: 'radio', label: '¿Asiste actualmente a una institución educativa?', opts: ['Sí', 'No'] },
+  { n: '38.1', var: 'edu_tipo', type: 'radio', label: 'Tipo de institución', when: (h, p) => p.edu_asiste === 'Sí', opts: [
+    'Nivel inicial (jardín o sala)', 'Escuela de gestión pública o privada', 'Escuela con proyecto de integración', 'Escuela de educación especial',
+    'Institución de educación superior (terciario o universidad)', 'Centro de formación laboral o de adultos', OTRO()] },
+  { n: '38.2', var: 'edu_noasiste', type: 'radio', label: '¿Cuál es el principal motivo por el que no asiste?', when: (h, p) => p.edu_asiste === 'No', opts: [
+    'Ya completó los estudios que quería', 'Falta de vacantes o de escuelas con apoyos', 'Barreras de accesibilidad', 'Razones económicas',
+    'Razones de salud o de cuidados', 'No se sintió incluido/a o sufrió discriminación', 'No le interesa', OTRO()] }
+]});
+
+const from14 = (h, p, c) => c.age !== null && c.age >= 14;
+PERSON_PAGES.push({ id: 'b10', scope: 'p', part: PB, title: 'Bloque 10 · Trabajo y protección social', qs: [
+  { n: '39', var: 'lab_sit', type: 'radio', label: 'Situación laboral', when: from14, opts: [
+    'Trabaja (ocupado/a)', 'No trabaja y busca trabajo (desocupado/a)', 'No trabaja ni busca trabajo (inactivo/a; incluye estudiantes y tareas de cuidado)',
+    'Jubilado/a o pensionado/a por régimen contributivo (no incluye la Pensión No Contributiva, que se pregunta aparte)'] },
+  { n: '39.1', var: 'lab_modalidad', type: 'radio', label: '¿En qué modalidad trabaja?', when: (h, p, c) => from14(h, p, c) && p.lab_sit === 'Trabaja (ocupado/a)', opts: [
+    'Relación de dependencia con aportes (público o privado)', 'Relación de dependencia sin aportes', 'Cuenta propia (monotributo, emprendimiento u oficio)',
+    'Taller protegido, empleo con apoyo o cooperativa', 'Programa de empleo o capacitación laboral', OTRO()] },
+  { n: '39.2', var: 'lab_tarea', type: 'text', optional: true, label: 'Tarea u oficio que desempeña', hint: 'Opcional.', when: (h, p, c) => from14(h, p, c) && p.lab_sit === 'Trabaja (ocupado/a)' },
+  { n: '40', var: 'pnc', type: 'radio', label: '¿Recibe Pensión No Contributiva por Invalidez?', opts: ['Sí', 'No', 'En trámite'] },
+  { n: '41', var: 'pre_otras', type: 'checks', label: '¿Recibe alguna otra prestación o programa de protección social?', hint: 'Puede marcar varias.', opts: [
+    'Asignación por hijo/a con discapacidad', 'Programa alimentario o tarjeta alimentaria', 'Subsidio de servicios (energía, gas o agua)', 'Pase o subsidio de transporte',
+    { v: 'Otro programa', other: true, otherLabel: 'Indique cuál' }, { v: 'Ninguno', excl: true }] }
+]});
+
+const BAR_VARS = ['bar_fisica', 'bar_comunic', 'bar_sensorial', 'bar_digital', 'bar_cognitiva'];
+PERSON_PAGES.push({ id: 'b11', scope: 'p', part: PB, title: 'Bloque 11 · Accesibilidad, barreras y movilidad', qs: [
+  { type: 'info', html: () => `<div class="intro"><p>Pensando en el día a día de la persona, ¿cuántas barreras encuentra en cada una de estas situaciones?</p><p class="hint">Responda una opción en cada fila.</p></div>` },
+  ...matrix([
+    ['42', 'bar_fisica', 'Para moverse por la calle, entrar a edificios o usar el transporte.'],
+    ['43', 'bar_comunic', 'Para entender carteles, folletos y la información que le dan.'],
+    ['44', 'bar_sensorial', 'Por el ruido, la luz o la falta de señales sonoras, visuales o táctiles en los lugares.'],
+    ['45', 'bar_digital', 'Para usar páginas web y aplicaciones o hacer trámites online.'],
+    ['46', 'bar_cognitiva', 'Para entender trámites, formularios y señalética.']
+  ], BAR_OPTS, { fijo: true }), // P42 a P46 (incluida P44): marca «fijo»
+  { n: '46.1', var: 'bar_lugares', type: 'checks', max: 3, label: '¿En qué lugares o situaciones encuentra más barreras?', hint: 'Puede marcar hasta 3.', when: (h, p) => BAR_VARS.some(v => p[v] === 'Muchas barreras'), opts: [
+    'Veredas y espacios públicos', 'Transporte público', 'Edificios y oficinas públicas', 'Centros de salud', 'Escuelas e instituciones educativas',
+    'Comercios y servicios privados', 'Trámites y servicios en línea', OTRO('el lugar o situación')] },
+  { n: '47', var: 'dispositivos', type: 'checks', label: '¿Qué dispositivos usa habitualmente?', hint: 'Puede marcar varios.', opts: ['Teléfono celular', 'Computadora', 'Tablet', { v: 'Ninguno', excl: true }] },
+  { n: '48', var: 'trans_medios', type: 'checks', label: 'Para moverse por la ciudad, ¿qué medios usa habitualmente?', hint: 'Puede marcar varios.', opts: [
+    'A pie o con silla de ruedas u otra ayuda técnica', 'Colectivo urbano', 'Taxi o remis', 'Auto propio o de un familiar', 'Moto o bicicleta',
+    'Transporte especial o adaptado', OTRO(), { v: 'No sale habitualmente de su casa', excl: true }] },
+  { n: '49', var: 'trans_uso', type: 'radio', label: '¿Puede usar el transporte público urbano cuando lo necesita?', opts: ['Sin dificultad', 'Con dificultad', 'No puede', 'No lo necesita o no lo usa'] },
+  { n: '49.1', var: 'trans_dif', type: 'checks', max: 3, label: '¿Qué dificultades encuentra para usarlo?', hint: 'Puede marcar hasta 3.', when: (h, p) => p.trans_uso === 'Con dificultad' || p.trans_uso === 'No puede', opts: [
+    'Unidades sin rampa o de piso alto', 'Paradas inaccesibles (sin refugio, veredas en mal estado)', 'Frecuencias u horarios insuficientes',
+    'Falta de información accesible (voz, pantallas, carteles)', 'Trato del personal', 'Costo', 'Falta de acompañante', OTRO()] }
+]});
+
+PERSON_PAGES.push({ id: 'b12', scope: 'p', part: PB, title: 'Bloque 12 · Participación y programas municipales', qs: [
+  { n: '50', var: 'part_act', type: 'checks', label: 'En el último año, ¿participó en alguna de estas actividades fuera del hogar?', hint: 'Puede marcar varias.', opts: [
+    'Deportivas o recreativas', 'Culturales o artísticas', 'Comunitarias o vecinales (centro vecinal, club, voluntariado u organizaciones)', 'De capacitación o formación',
+    { v: 'Otra', other: true, otherLabel: 'Indique cuál' }, { v: 'Ninguna', excl: true }] },
+  { n: '50.1', var: 'part_barreras', type: 'checks', max: 3, label: '¿Qué le impidió participar?', hint: 'Puede marcar hasta 3.', when: (h, p) => has(p.part_act, 'Ninguna'), opts: [
+    'Falta de accesibilidad en los lugares', 'Falta de transporte', 'Costos', 'Faltan propuestas adaptadas', 'Falta de acompañante o de apoyos',
+    'No conoce las actividades disponibles', 'No le interesa', OTRO()] },
+  { n: '51', var: 'prog_participa', type: 'radio', label: '¿Participa en algún programa o servicio municipal para personas en situación de discapacidad?', opts: ['Sí', 'No'] },
+  { n: '51.1', var: 'prog_cuales', type: 'checks', label: '¿En cuáles participa?', hint: 'Puede marcar varios.', when: (h, p) => p.prog_participa === 'Sí', opts: progOpts() },
+  { n: '51.2', var: 'prog_interes', type: 'checks', optional: true, label: '¿En cuáles le interesaría participar y hoy no lo hace?', hint: 'Opcional. Puede marcar varios. Al final se muestra el contacto de cada programa elegido.',
+    opts: [...progOpts().map(o => o.other ? o : ({ ...o, when: (h, p, c) => (!o.when || o.when(h, p, c)) && !has(p.prog_cuales, o.v) })), { v: 'Ninguno por ahora', excl: true }] },
+  { n: '52', var: 'discrim', type: 'radio', label: 'En el último año, ¿se sintió discriminado/a por su situación de discapacidad?', opts: ['Sí', 'No'] },
+  { n: '52.1', var: 'discrim_donde', type: 'textarea', optional: true, label: '¿Dónde?', hint: 'Opcional.', when: (h, p) => p.discrim === 'Sí' }
+]});
+
+const PAGE_C = { id: 'b13', scope: 'h', part: 'Parte C · Cierre', title: 'Bloque 13 · Comentario final y constancia', qs: [
+  { n: '53', var: 'comentario', type: 'textarea', optional: true, label: '¿Hay algo más que quiera contarnos o que la Municipalidad deba tener en cuenta?', hint: 'Opcional.' }
+]};
+
+/* ============ estado y navegación ============ */
+const STATE = { h: {}, p: [], meta: {} };
+let cur = 0;
+const app = document.getElementById('app');
+
+function nPersons() { const n = parseInt(STATE.h.hogar_pcd, 10); return n >= 1 && n <= 10 ? n : 1; }
+function pageList() {
+  const list = PAGES.slice(); const n = nPersons();
+  for (let i = 0; i < n; i++) PERSON_PAGES.forEach(pg => list.push({ ...pg, idx: i }));
+  list.push(PAGE_C); return list;
+}
+function ctxFor(pg) {
+  const idx = pg.idx ?? 0; const p = STATE.p[idx] || (STATE.p[idx] = {});
+  return { idx, n: nPersons(), age: ageOf(p.nacimiento), usted: STATE.h.quien === 'La propia persona en situación de discapacidad' };
+}
+const scopeObj = pg => pg.scope === 'p' ? (STATE.p[pg.idx] || (STATE.p[pg.idx] = {})) : STATE.h;
+const pageOn = pg => !pg.when || pg.when(STATE.h, scopeObj(pg), ctxFor(pg));
+const qOn = (q, pg) => !q.when || q.when(STATE.h, scopeObj(pg), ctxFor(pg));
+const optsOf = q => (typeof q.opts === 'function' ? q.opts() : q.opts || []).map(norm);
+
+let PAGE, QS;
+function render() {
+  const list = pageList(); PAGE = list[cur]; QS = PAGE.qs;
+  const visible = list.filter(pageOn); const pos = visible.indexOf(PAGE) + 1;
+  const c = ctxFor(PAGE); const S = scopeObj(PAGE);
+  let html = `<div class="card"><div class="progress"><span>${esc(PAGE.part || 'Inicio')}</span><span>Paso ${pos} de ${visible.length}</span></div>
+    <div class="bar" aria-hidden="true"><i style="width:${Math.round(pos / visible.length * 100)}%"></i></div>`;
+  if (PAGE.scope === 'p') html += `<div class="person">Persona ${c.idx + 1} de ${c.n}${S.nombre ? ' · ' + esc(S.nombre) : ''}</div>`;
+  html += `<h2 tabindex="-1" id="ptitle">${esc(PAGE.title)}</h2><div id="errsum" role="alert"></div>`;
+  if (PAGE.intro) html += PAGE.introRaw ? mk(PAGE.intro) : `<div class="intro">${mk(PAGE.intro)}</div>`;
+  html += `<form id="f" novalidate>`;
+  QS.forEach((q, i) => html += renderQ(q, i, c));
+  html += `</form><div class="nav">${cur > 1 ? '<button type="button" class="btn sec" id="back">Anterior</button>' : '<span></span>'}
+    <button type="button" class="btn primary" id="next">${cur === 0 ? 'Comenzar' : (PAGE.id === 'b13' ? 'Enviar' : 'Siguiente')}</button></div></div>`;
+  app.innerHTML = html;
+  QS.forEach((q, i) => { if (q.var) setDom(q, i, S[q.var], S[q.var + '_otro']); if (q.type === 'street') initStreet(q, i); });
+  refresh();
+  const f = document.getElementById('f');
+  f.addEventListener('change', onChange); f.addEventListener('input', onInput);
+  f.addEventListener('click', e => { const b = e.target.closest('[data-copy]'); if (b) copyPrev(+b.dataset.copy); });
+  document.getElementById('next').onclick = next;
+  const b = document.getElementById('back'); if (b) b.onclick = back;
+  document.getElementById('ptitle').focus(); window.scrollTo(0, 0);
+}
+
+function renderQ(q, i, c) {
+  if (q.type === 'info') return `<div class="q" data-i="${i}">${mk(q.html(c))}</div>`;
+  const id = 'q' + i; const hint = q.hint ? `<p class="hint" id="${id}h">${mk(q.hint)}</p>` : '';
+  const num = `<span class="num">${esc(q.n)}.</span>`;
+  const desc = `aria-describedby="${q.hint ? id + 'h ' : ''}${id}e"`;
+  const copy = q.copyPrev && c.idx > 0 ? `<button type="button" class="btn sec small noprint" data-copy="${i}">Igual que la persona anterior</button>` : '';
+  const req = q.optional ? '' : ' aria-required="true"';
+  let body = '';
+  if (q.type === 'radio' || q.type === 'checks') {
+    const t = q.type === 'radio' ? 'radio' : 'checkbox';
+    const opts = optsOf(q); let other = null;
+    body = `<fieldset${q.matrix ? ' class="matrix"' : ''} ${desc}${q.type === 'radio' ? ' role="radiogroup"' + req : ''}><legend>${num}${esc(q.label)}</legend>${hint}${copy}<div class="opts">` +
+      opts.map((o, k) => { if (o.other) other = o; return `<label class="opt" data-o="${k}"><input type="${t}" name="${q.var}" value="${esc(o.v)}"><span>${esc(o.label || o.v)}${o.d ? `<small>${esc(o.d)}</small>` : ''}</span></label>`; }).join('') +
+      `</div>${other ? otherBox(q, other) : ''}</fieldset>`;
+  } else if (q.type === 'select') {
+    const opts = optsOf(q); const other = opts.find(o => o.other);
+    const hasReal = opts.some(o => !o.other);
+    body = `<label class="qlabel" for="${id}">${num}${esc(q.label)}</label>${hint}<select id="${id}" name="${q.var}" ${desc}${req}><option value="">Seleccioná una opción</option>` +
+      (q.var === 'barrio' && !LISTAS.barrios.length ? `<option value="" disabled>[COMPLETAR (Estadística): un barrio por línea, según listado oficial]</option>` : '') +
+      opts.map((o, k) => `<option value="${esc(o.v)}" data-o="${k}">${esc(o.label || o.v)}</option>`).join('') + `</select>${other ? otherBox(q, other) : ''}`;
+    void hasReal;
+  } else if (q.type === 'consent') {
+    body = `<label class="opt"><input type="checkbox" id="${id}" name="${q.var}" ${desc}${req}><span>${num}${esc(q.label)}</span></label>`;
+  } else if (q.type === 'textarea') {
+    body = `<label class="qlabel" for="${id}">${num}${esc(q.label)}</label>${hint}<textarea id="${id}" name="${q.var}" ${desc}></textarea>`;
+  } else if (q.type === 'month') {
+    body = `<label class="qlabel" for="${id}">${num}${esc(q.label)}</label>${hint}<input type="month" id="${id}" name="${q.var}" placeholder="AAAA-MM" ${desc}>
+      <label class="opt"><input type="checkbox" name="${q.var}__ns"><span>${esc(q.unknown)}</span></label>`;
+  } else if (q.type === 'street') {
+    body = `<label class="qlabel" for="${id}">${num}${esc(q.label)}</label>${hint}<div class="combo">
+      <input type="text" id="${id}" name="${q.var}" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="${id}lb" autocomplete="off" spellcheck="false" ${desc}${req}>
+      <ul id="${id}lb" role="listbox" class="lb" aria-label="Calles sugeridas" hidden></ul></div>
+      <p class="hint" id="${id}st" aria-live="polite"></p>
+      <label class="opt"><input type="checkbox" name="${q.var}__nl"><span>Mi calle no está en el listado</span></label>`;
+  } else {
+    const type = { text: 'text', tel: 'tel', email: 'email', number: 'number', date: 'date' }[q.type];
+    const extra = (q.min != null ? ` min="${q.min}"` : '') + (q.max != null ? ` max="${q.max}"` : '') + (q.inputmode ? ` inputmode="${q.inputmode}"` : (q.type === 'number' ? ' inputmode="numeric"' : '')) +
+      (q.type === 'date' ? ` max="${new Date().toISOString().slice(0, 10)}"` : '') + (q.type === 'email' ? ' autocomplete="email"' : '') + (q.type === 'tel' ? ' autocomplete="tel"' : '');
+    body = `<label class="qlabel" for="${id}">${num}${esc(q.label)}</label>${hint}<input type="${type}" id="${id}" name="${q.var}"${extra} ${desc}${req}>` +
+      (q.unknown ? `<label class="opt"><input type="checkbox" name="${q.var}__ns"><span>${esc(q.unknown)}</span></label>` : '');
+  }
+  return `<div class="q" data-i="${i}">${body}<div class="err" id="${id}e"></div></div>`;
+}
+const otherBox = (q, o) => `<div class="otro" hidden><label for="${q.var}__otro">${esc(o.otherLabel || 'Indique cuál')} (obligatorio)</label><input type="text" id="${q.var}__otro" name="${q.var}__otro"></div>`;
+
+/* ---- buscador de calles (combobox accesible) ---- */
+const normS = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().replace(/[.,\-()]/g, ' ').replace(/\s+/g, ' ').trim();
+const CALLES_N = LISTAS.calles.map(c => [c, normS(c)]);
+function streetMatch(t) { const n = normS(t); if (!n) return ''; const f = CALLES_N.find(x => x[1] === n); return f ? f[0] : ''; }
+function initStreet(q, i) {
+  const w = wrapOf(i); const inp = w.querySelector('[role=combobox]'); const lb = w.querySelector('[role=listbox]');
+  const st = w.querySelector(`#q${i}st`); const nl = w.querySelector(`input[name="${q.var}__nl"]`);
+  let items = [], act = -1;
+  const close = () => { lb.hidden = true; inp.setAttribute('aria-expanded', 'false'); inp.removeAttribute('aria-activedescendant'); act = -1; };
+  const choose = k => { inp.value = items[k]; close(); readQ(q, i); refresh(); showErr(i, ''); st.textContent = 'Calle seleccionada: ' + items[k] + '.'; };
+  const setAct = k => {
+    act = k; [...lb.children].forEach((li, j) => li.setAttribute('aria-selected', j === k ? 'true' : 'false'));
+    if (k >= 0) { const li = lb.children[k]; inp.setAttribute('aria-activedescendant', li.id); li.scrollIntoView({ block: 'nearest' }); }
+  };
+  const update = () => {
+    if (nl.checked) { close(); st.textContent = ''; return; }
+    const n = normS(inp.value); if (!n) { close(); st.textContent = ''; return; }
+    const toks = n.split(' ');
+    const m = CALLES_N.filter(x => toks.every(t => x[1].includes(t)));
+    m.sort((a, b) => ((b[1] === n) - (a[1] === n)) || (b[1].startsWith(n) - a[1].startsWith(n)) || a[1].localeCompare(b[1], 'es'));
+    items = m.slice(0, 50).map(x => x[0]);
+    lb.innerHTML = items.map((c, k) => `<li role="option" id="q${i}o${k}" aria-selected="false">${esc(c)}</li>`).join('');
+    lb.hidden = !items.length; inp.setAttribute('aria-expanded', items.length ? 'true' : 'false'); act = -1;
+    st.textContent = items.length ? `${m.length} ${m.length === 1 ? 'calle encontrada' : 'calles encontradas'}${m.length > 50 ? ' (se muestran 50: siga escribiendo para acotar)' : ''}. Use las flechas y Enter para elegir.`
+      : 'No se encontraron calles con ese nombre. Revise lo escrito o marque «Mi calle no está en el listado».';
+  };
+  inp.addEventListener('input', update);
+  inp.addEventListener('keydown', e => {
+    if (lb.hidden) { if (e.key === 'ArrowDown') { update(); if (!lb.hidden) { e.preventDefault(); setAct(0); } } return; }
+    if (e.key === 'ArrowDown') { e.preventDefault(); setAct(Math.min(items.length - 1, act + 1)); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setAct(Math.max(0, act - 1)); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (act >= 0) choose(act); else if (items.length === 1) choose(0); }
+    else if (e.key === 'Escape') { e.preventDefault(); close(); }
+  });
+  lb.addEventListener('mousedown', e => { const li = e.target.closest('[role=option]'); if (li) { e.preventDefault(); choose([...lb.children].indexOf(li)); } });
+  inp.addEventListener('blur', () => setTimeout(close, 150));
+  nl.addEventListener('change', () => { if (nl.checked) { close(); st.textContent = 'Escriba el nombre de la calle tal como lo conoce.'; } else update(); });
+}
+
+function wrapOf(i) { return app.querySelector(`.q[data-i="${i}"]`); }
+function readQ(q, i) {
+  const w = wrapOf(i); const S = scopeObj(PAGE); let v;
+  if (q.type === 'radio') v = (w.querySelector(`input[name="${q.var}"]:checked`) || {}).value;
+  else if (q.type === 'checks') v = [...w.querySelectorAll(`input[name="${q.var}"]:checked`)].map(x => x.value);
+  else if (q.type === 'consent') v = w.querySelector('input').checked;
+  else if (q.type === 'month') { const ns = w.querySelector(`input[name="${q.var}__ns"]`); const m = w.querySelector('input[type=month]'); m.disabled = ns.checked; v = ns.checked ? q.unknown : m.value.trim(); }
+  else if (q.type === 'street') {
+    const t = w.querySelector(`[name="${q.var}"]`).value.trim(); const nl = w.querySelector(`input[name="${q.var}__nl"]`).checked;
+    v = nl ? t : streetMatch(t);
+    if (nl) S[q.var + '_nolistada'] = true; else delete S[q.var + '_nolistada'];
+  }
+  else if (q.unknown) { const ns = w.querySelector(`input[name="${q.var}__ns"]`); const inp = w.querySelector(`[name="${q.var}"]`); inp.disabled = ns.checked; v = ns.checked ? q.unknown : inp.value.trim(); }
+  else v = (w.querySelector(`[name="${q.var}"]`).value || '').trim();
+  if (empty(v)) delete S[q.var]; else S[q.var] = v;
+  const ob = w.querySelector('.otro');
+  if (ob) {
+    const otherOpt = optsOf(q).find(o => o.other); const sel = Array.isArray(v) ? has(v, otherOpt.v) : v === otherOpt.v;
+    ob.hidden = !sel; const t = ob.querySelector('input').value.trim();
+    if (sel && t) S[q.var + '_otro'] = t; else delete S[q.var + '_otro'];
+    if (!sel) ob.querySelector('input').value = '';
+  }
+  if (q.type === 'consent' && v) S[q.var + '_fecha_hora'] = new Date().toISOString(); else if (q.type === 'consent') delete S[q.var + '_fecha_hora'];
+}
+function setDom(q, i, v, otro) {
+  const w = wrapOf(i); if (!w) return;
+  if (q.type === 'radio' || q.type === 'checks') w.querySelectorAll(`input[name="${q.var}"]`).forEach(x => x.checked = Array.isArray(v) ? v.includes(x.value) : x.value === v);
+  else if (q.type === 'consent') w.querySelector('input').checked = !!v;
+  else if (q.type === 'month') { const ns = w.querySelector(`input[name="${q.var}__ns"]`); const m = w.querySelector('input[type=month]'); ns.checked = v === q.unknown; m.disabled = ns.checked; m.value = v && v !== q.unknown ? v : ''; }
+  else if (q.type === 'street') { w.querySelector(`[name="${q.var}"]`).value = v ?? ''; w.querySelector(`input[name="${q.var}__nl"]`).checked = !!scopeObj(PAGE)[q.var + '_nolistada']; }
+  else if (q.unknown) { const ns = w.querySelector(`input[name="${q.var}__ns"]`); const inp = w.querySelector(`[name="${q.var}"]`); ns.checked = v === q.unknown; inp.disabled = ns.checked; inp.value = v && v !== q.unknown ? v : ''; }
+  else { const el = w.querySelector(`[name="${q.var}"]`); el.value = v ?? ''; }
+  const ob = w.querySelector('.otro'); if (ob) { ob.querySelector('input').value = otro || ''; const oo = optsOf(q).find(o => o.other); ob.hidden = !(Array.isArray(v) ? has(v, oo.v) : v === oo.v); }
+}
+
+function refresh() {
+  const S = scopeObj(PAGE); const c = ctxFor(PAGE);
+  for (let pass = 0; pass < 3; pass++) {
+    QS.forEach((q, i) => {
+      const w = wrapOf(i); const on = qOn(q, PAGE); w.hidden = !on;
+      if (!on && q.var && (S[q.var] !== undefined || S[q.var + '_otro'] !== undefined)) { delete S[q.var]; delete S[q.var + '_otro']; delete S[q.var + '_fecha_hora']; setDom(q, i, undefined, ''); }
+      if (on && q.opts) {
+        let changed = false;
+        optsOf(q).forEach((o, k) => {
+          if (!o.when) return; const ok = o.when(STATE.h, S, c);
+          w.querySelectorAll(`[data-o="${k}"]`).forEach(el => {
+            el.hidden = !ok;
+            if (el.tagName === 'OPTION') { el.disabled = !ok; if (!ok && el.selected) { el.parentNode.value = ''; changed = true; } }
+            else { const inp = el.querySelector('input'); if (!ok && inp.checked) { inp.checked = false; changed = true; } }
+          });
+        });
+        if (changed) readQ(q, i);
+      }
+    });
+  }
+}
+
+function onChange(e) {
+  const w = e.target.closest('.q'); if (!w) return; const i = +w.dataset.i; const q = QS[i]; if (!q || !q.var) return;
+  if (q.type === 'checks' && e.target.name === q.var && e.target.checked) {
+    const boxes = [...w.querySelectorAll(`input[name="${q.var}"]`)]; const opts = optsOf(q);
+    const o = opts.find(x => x.v === e.target.value);
+    if (o.excl) boxes.forEach(b => { if (b !== e.target) b.checked = false; });
+    else boxes.forEach(b => { const ob = opts.find(x => x.v === b.value); if (ob.excl) b.checked = false; });
+    if (q.max && boxes.filter(b => b.checked).length > q.max) { e.target.checked = false; showErr(i, `Puede elegir hasta ${q.max} opciones.`); }
+    else showErr(i, '');
+  }
+  readQ(q, i); refresh();
+}
+function onInput(e) {
+  const w = e.target.closest('.q'); if (!w) return; const q = QS[+w.dataset.i];
+  if (q && q.var && !['radio', 'checks', 'consent'].includes(q.type) || e.target.name.endsWith('__otro')) { readQ(q, +w.dataset.i); refresh(); }
+}
+function copyPrev(i) {
+  const q = QS[i]; const prev = STATE.p[PAGE.idx - 1] || {}; const S = scopeObj(PAGE);
+  if (prev[q.var] === undefined) { showErr(i, 'La persona anterior no tiene esta respuesta cargada.'); return; }
+  S[q.var] = JSON.parse(JSON.stringify(prev[q.var])); if (prev[q.var + '_otro']) S[q.var + '_otro'] = prev[q.var + '_otro'];
+  setDom(q, i, S[q.var], S[q.var + '_otro']); showErr(i, ''); refresh();
+}
+function showErr(i, msg) { const w = wrapOf(i); if (!w) return; w.querySelector('.err').textContent = msg; w.classList.toggle('invalid', !!msg); }
+
+function validate() {
+  const S = scopeObj(PAGE); const c = ctxFor(PAGE); const errs = [];
+  QS.forEach((q, i) => {
+    if (!q.var || !qOn(q, PAGE)) return; let msg = '';
+    const v = S[q.var];
+    if (!q.optional && empty(v)) msg = q.type === 'consent' ? 'Debe marcar esta casilla para continuar.'
+      : (q.type === 'street' && wrapOf(i).querySelector('[role=combobox]').value.trim() ? 'Elija la calle de la lista de sugerencias, o marque «Mi calle no está en el listado».' : 'Esta pregunta es obligatoria.');
+    else if (!empty(v)) {
+      const oo = q.opts && optsOf(q).find(o => o.other);
+      if (oo && (Array.isArray(v) ? has(v, oo.v) : v === oo.v) && !S[q.var + '_otro']) msg = 'Complete el campo “' + (oo.otherLabel || 'Indique cuál') + '”.';
+      else if (q.validate) msg = q.validate(v, STATE.h, S, c) || '';
+    } else if (q.validate && q.optional && q.type !== 'checks') msg = q.validate(v || '', STATE.h, S, c) || '';
+    showErr(i, msg); if (msg) errs.push([i, q, msg]);
+  });
+  const box = document.getElementById('errsum');
+  if (errs.length) {
+    box.innerHTML = `<div class="summary"><h3>Revise ${errs.length === 1 ? 'esta respuesta' : 'estas ' + errs.length + ' respuestas'}</h3><ul>` +
+      errs.map(([i, q, m]) => `<li><a href="#q${i}" data-go="${i}">Pregunta ${esc(q.n)}: ${esc(m)}</a></li>`).join('') + '</ul></div>';
+    box.querySelectorAll('[data-go]').forEach(a => a.onclick = ev => { ev.preventDefault(); const w = wrapOf(+a.dataset.go); const f = w.querySelector('input,select,textarea'); w.scrollIntoView({ block: 'center' }); if (f) f.focus(); });
+    box.querySelector('a').focus();
+    return false;
+  }
+  box.innerHTML = ''; return true;
+}
+
+function next() {
+  if (!validate()) return;
+  if (PAGE.id === 'b2' && STATE.h.reside === 'No') return closed();
+  if (PAGE.id === 'b2') STATE.p.length = Math.min(STATE.p.length, nPersons());
+  const list = pageList();
+  if (PAGE.id === 'b13') return finish();
+  let k = cur + 1; while (k < list.length && !pageOn(list[k])) k++;
+  cur = k; render();
+}
+function back() { const list = pageList(); let k = cur - 1; while (k > 1 && !pageOn(list[k])) k--; cur = Math.max(1, k); render(); }
+
+function closed() {
+  app.innerHTML = `<div class="card"><h2 tabindex="-1" id="ptitle">Gracias por su interés</h2>
+    <p>Este relevamiento es para residentes de la ciudad de Río Cuarto.</p>
+    <div class="box"><h3>Dirección de Estadística, Control de Calidad y Procesos</h3><p>${esc(LISTAS.inclusion)}</p></div>
+    <div class="nav"><button type="button" class="btn sec" id="back">Volver</button></div></div>`;
+  document.getElementById('back').onclick = () => render();
+  document.getElementById('ptitle').focus();
+}
+
+/* ============ cálculo, registro y constancia ============ */
+const REGISTRO_VARS = ['quien_nombre', 'quien_dni', 'quien_vinculo', 'quien_vinculo_otro', 'domicilio', 'domicilio_calle', 'domicilio_calle_nolistada', 'domicilio_altura', 'telefono', 'correo', 'nombre', 'doc_numero'];
+function calc(p) {
+  const edad = ageOf(p.nacimiento); const criterios = [];
+  if (edad !== null && edad >= 18 && ['wg_ver', 'wg_oir', 'wg_caminar', 'wg_recordar', 'wg_cuidado', 'wg_comunicar'].some(k => p[k] === 'Tiene mucha dificultad' || p[k] === 'Le resulta imposible')) criterios.push('funcional');
+  if (p.cud === 'Sí') criterios.push('CUD');
+  if (p.cud === 'En trámite') criterios.push('CUD en trámite');
+  if (p.diagnostico === 'Sí') criterios.push('diagnóstico');
+  let vig = null;
+  if (p.cud === 'Sí') {
+    if (!p.cud_venc || p.cud_venc === 'No lo sé') vig = 'sin dato';
+    else { const [y, m] = p.cud_venc.split('-').map(Number); const end = new Date(y, m, 0, 23, 59); const now = new Date(); const d = (end - now) / 864e5; vig = d < 0 ? 'vencido' : (d <= 90 ? 'por vencer' : 'vigente'); }
+  }
+  const at = p.apoyo_tipos || [];
+  const apoyo_recibe = !at.length ? null : (has(at, 'Ninguno') ? 'No' : (has(at, 'No sabe / no puede precisar') ? 'No sabe / no puede precisar' : 'Sí'));
+  return {
+    edad, apoyo_recibe, criterio_inclusion: criterios[0] || 'fuera de criterio', criterios_cumplidos: criterios, vigencia_cud: vig,
+    tipo_disc_multiple: Array.isArray(p.tipo_disc) ? p.tipo_disc.filter(x => x !== 'No sabe / No responde').length >= 2 : false,
+    funcional_infantil: edad !== null && edad >= 2 && edad <= 17 ? 'pendiente: módulo infantil no cargado' : undefined
+  };
+}
+function split(obj) {
+  const reg = {}, est = {};
+  Object.entries(obj).forEach(([k, v]) => (REGISTRO_VARS.includes(k) ? reg : est)[k] = v);
+  return [reg, est];
+}
+function rnd(n) { const a = new Uint8Array(n); crypto.getRandomValues(a); return [...a].map(b => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[b % 32]).join(''); }
+
+function finish() {
+  const now = new Date(); const codigo = 'RSD-' + rnd(4) + '-' + rnd(4); const idInterno = rnd(12);
+  const [hReg, hEst] = split(STATE.h);
+  if (CANAL_URL) hEst.canal = CANAL_URL;
+  hReg.domicilio = [STATE.h.domicilio_calle, STATE.h.domicilio_altura === 'Sin número' ? 'S/N' : STATE.h.domicilio_altura].filter(Boolean).join(' ');
+  const personas = STATE.p.slice(0, nPersons()).map((p, i) => { const [r, e] = split(p); return { reg: { persona: i + 1, ...r }, est: { persona: i + 1, ...e, ...calc(p) } }; });
+  const record = {
+    meta: { codigo, fecha_hora: now.toISOString(), version_formulario: 'v3', version_consentimiento: CONSENT_VERSION, canal_desde_enlace: !!CANAL_URL },
+    registro: { id_interno: idInterno, ...hReg, personas: personas.map(x => x.reg) },
+    estadistica: { id_interno: idInterno, hogar: hEst, personas: personas.map(x => x.est) }
+  };
+  window.__RECORD = record;
+  const quien = STATE.h.quien === 'La propia persona en situación de discapacidad' ? (STATE.p[0] || {}).nombre : STATE.h.quien_nombre;
+  const contactos = [{ t: 'Departamento de Inclusión', c: LISTAS.inclusion }];
+  const elegidos = new Set(); STATE.p.forEach(p => (p.prog_interes || []).forEach(v => elegidos.add(v)));
+  PROGRAMAS.forEach(pr => { if (elegidos.has(pr.v) && pr.v !== 'Departamento de Inclusión') contactos.push({ t: pr.v, c: pr.contacto || '[COMPLETAR (Subsecretaría): contacto]' }); });
+  if (STATE.p.some(p => p.lab_sit === 'No trabaja y busca trabajo (desocupado/a)') && !elegidos.has('Departamento de Inclusión Laboral')) {
+    const il = PROGRAMAS.find(p => p.v === 'Departamento de Inclusión Laboral'); contactos.push({ t: il.v, c: il.contacto });
+  }
+  app.hidden = true; const fin = document.getElementById('fin'); fin.hidden = false;
+  fin.innerHTML = `<div class="card" id="constancia"><p class="piloto-c">PRUEBA PILOTO PRELIMINAR · CONFIDENCIAL</p><h2 tabindex="-1" id="ftitle"><span class="ok">✓</span> Formulario enviado</h2>
+    <p>Gracias por participar del Relevamiento Situacional Autogestionado de Personas en Situación de Discapacidad 2026.</p>
+    <div class="box"><h3>Constancia</h3>
+      <p>Código: <span class="code">${codigo}</span></p>
+      <p>Fecha y hora: ${now.toLocaleString('es-AR')}</p>
+      <p>Completado por: ${esc(quien || '')}</p>
+      <p>Personas cargadas: ${personas.length} — ${STATE.p.slice(0, nPersons()).map(p => esc(p.nombre || '')).join(', ')}</p></div>
+    <h3>Contactos</h3>${contactos.map(x => `<div class="box"><strong>${esc(x.t)}</strong><p>${mk(esc(x.c))}</p></div>`).join('')}
+    <p class="hint noprint">El envío de la constancia por correo y el guardado en el almacenamiento cifrado requieren el servidor del relevamiento ${mk('[COMPLETAR (Estadística): proveedor, ubicación y mecanismo de cifrado]')}. En esta versión, las respuestas se pueden descargar.</p>
+    <div class="nav noprint"><button type="button" class="btn sec" id="print">Imprimir o guardar constancia</button><button type="button" class="btn primary" id="dl">Descargar respuestas (JSON)</button></div></div>`;
+  document.getElementById('print').onclick = () => window.print();
+  document.getElementById('dl').onclick = () => {
+    const blob = new Blob([JSON.stringify(record, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = codigo + '.json'; document.body.appendChild(a); a.click(); a.remove();
+  };
+  document.getElementById('ftitle').focus(); window.scrollTo(0, 0);
+}
+
+/* ============ accesibilidad: tamaño de letra y contraste ============ */
+(function () {
+  let fs = 18; const set = () => document.documentElement.style.setProperty('--fs', fs + 'px');
+  document.getElementById('fsUp').onclick = () => { fs = Math.min(28, fs + 2); set(); };
+  document.getElementById('fsDown').onclick = () => { fs = Math.max(14, fs - 2); set(); };
+  document.getElementById('themeBtn').onclick = () => {
+    const r = document.documentElement; const dark = r.dataset.theme ? r.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    r.dataset.theme = dark ? 'light' : 'dark';
+  };
+})();
+
+/* ============ modal de ayuda e información ============ */
+(function () {
+  const dlg = document.getElementById('ayuda'); let opener = null;
+  document.getElementById('ayudaB').innerHTML = mk(AYUDA + ESTANDARES);
+  document.addEventListener('click', e => { const b = e.target.closest('[data-ayuda]'); if (b) { opener = b; dlg.showModal(); document.getElementById('ayudaX').focus(); } });
+  document.getElementById('ayudaX').onclick = () => dlg.close();
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('close', () => { if (opener && document.contains(opener)) opener.focus(); });
+})();
+
+render();
+</script>
+</body>
+</html>
